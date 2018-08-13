@@ -19,6 +19,7 @@ namespace FSDP.DATA.EF
         public int CourseID { get; set; }
         public System.DateTime DateCompleted { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         public virtual Cours Cours { get; set; }
     }
 }
