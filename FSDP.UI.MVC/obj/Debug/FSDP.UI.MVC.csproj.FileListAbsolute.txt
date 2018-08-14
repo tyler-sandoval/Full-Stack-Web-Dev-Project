@@ -16,6 +16,7 @@ C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Antlr3.Runtime.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\EntityFramework.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\EntityFramework.SqlServer.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\FSDP.DATA.EF.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -40,6 +41,7 @@ C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.WebPages.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.WebPages.Razor.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\WebGrease.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\FSDP.DATA.EF.pdb
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.Owin.xml
@@ -64,8 +66,6 @@ C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\obj\Debug\FSDP.UI.MVC.csprojResolveAssemblyReference.cache
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\obj\Debug\FSDP.UI.MVC.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\obj\Debug\FSDP.UI.MVC.pdb
-C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\obj\Debug\FSDP.UI.MVC.csprojResolveAssemblyReference.cache
-C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\FSDP.DATA.EF.dll
-C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\FSDP.DATA.EF.pdb

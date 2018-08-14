@@ -88,6 +88,11 @@
     <Compile Include="Metadata\CourseMetadata.cs" />
     <Compile Include="Metadata\LessonMetadata.cs" />
     <Compile Include="Metadata\LessonViewsMetadata.cs" />
+    <Compile Include="Repositories\CourseCompletionsRepository.cs" />
+    <Compile Include="Repositories\CoursesRespository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\LessonsRepository.cs" />
+    <Compile Include="Repositories\LessonViewsRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -105,9 +110,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="FSDP.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
