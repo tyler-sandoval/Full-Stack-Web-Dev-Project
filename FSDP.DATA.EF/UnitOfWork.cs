@@ -10,7 +10,7 @@ namespace FSDP.DATA.EF
 {
     public class UnitOfWork
     {
-        public FSDPEntities context = new FSDPEntities();
+        public FSDPEntities1 context = new FSDPEntities1();
 
         private CoursesRespository _coursesRepository;
         public CoursesRespository CoursesRepository
@@ -22,6 +22,19 @@ namespace FSDP.DATA.EF
                     this._coursesRepository = new CoursesRespository(context);
                 }
                 return _coursesRepository;
+            }
+        }
+
+        private CourseAssignmentsRepository _courseAssignmentsRepository;
+        public CourseAssignmentsRepository CourseAssignmentsRepository
+        {
+            get
+            {
+                if (this._courseAssignmentsRepository == null)
+                {
+                    this._courseAssignmentsRepository = new CourseAssignmentsRepository(context);
+                }
+                return _courseAssignmentsRepository;
             }
         }
 

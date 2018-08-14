@@ -13,10 +13,10 @@ namespace FSDP.DATA.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FSDPEntities : DbContext
+    public partial class FSDPEntities1 : DbContext
     {
-        public FSDPEntities()
-            : base("name=FSDPEntities")
+        public FSDPEntities1()
+            : base("name=FSDPEntities1")
         {
         }
     
@@ -27,6 +27,7 @@ namespace FSDP.DATA.EF
     
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<CourseAssignment> CourseAssignments { get; set; }
         public virtual DbSet<CourseCompletion> CourseCompletions { get; set; }
         public virtual DbSet<Cours> Courses { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }

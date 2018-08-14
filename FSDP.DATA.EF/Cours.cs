@@ -17,6 +17,7 @@ namespace FSDP.DATA.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cours()
         {
+            this.CourseAssignments = new HashSet<CourseAssignment>();
             this.CourseCompletions = new HashSet<CourseCompletion>();
             this.Lessons = new HashSet<Lesson>();
         }
@@ -26,6 +27,8 @@ namespace FSDP.DATA.EF
         public string Description { get; set; }
         public bool IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourseAssignment> CourseAssignments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseCompletion> CourseCompletions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

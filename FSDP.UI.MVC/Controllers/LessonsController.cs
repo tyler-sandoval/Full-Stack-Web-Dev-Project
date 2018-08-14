@@ -12,12 +12,14 @@ namespace FSDP.UI.MVC.Controllers
 {
     public class LessonsController : Controller
     {
-        private FSDPEntities db = new FSDPEntities();
+        //private FSDPEntities1 db = new FSDPEntities1();
+        UnitOfWork uow = new UnitOfWork();
 
         // GET: Lessons
         public ActionResult Index()
         {
-            var lessons = db.Lessons.Include(l => l.Cours);
+            //var lessons = db.Lessons.Include(l => l.Cours);
+            var lessons = uow.LessonsRepository.Get(includeProperties: "Cours");
             return View(lessons.ToList());
         }
 
@@ -28,7 +30,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lesson lesson = db.Lessons.Find(id);
+            Lesson lesson = uow.LessonsRepository.Find(id);
             if (lesson == null)
             {
                 return HttpNotFound();
@@ -39,7 +41,7 @@ namespace FSDP.UI.MVC.Controllers
         // GET: Lessons/Create
         public ActionResult Create()
         {
-            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
+            ViewBag.CourseID = new SelectList(uow.CoursesRepository.Get(), "CourseID", "CourseName");
             return View();
         }
 
@@ -52,12 +54,12 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Lessons.Add(lesson);
-                db.SaveChanges();
+                uow.LessonsRepository.Add(lesson);
+                uow.Save();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName", lesson.CourseID);
+            ViewBag.CourseID = new SelectList(uow.CoursesRepository.Get(), "CourseID", "CourseName", lesson.CourseID);
             return View(lesson);
         }
 
@@ -68,12 +70,12 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lesson lesson = db.Lessons.Find(id);
+            Lesson lesson = uow.LessonsRepository.Find(id);
             if (lesson == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName", lesson.CourseID);
+            ViewBag.CourseID = new SelectList(uow.CoursesRepository.Get(), "CourseID", "CourseName", lesson.CourseID);
             return View(lesson);
         }
 
@@ -86,11 +88,11 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(lesson).State = EntityState.Modified;
-                db.SaveChanges();
+                uow.LessonsRepository.Update(lesson);
+                uow.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName", lesson.CourseID);
+            ViewBag.CourseID = new SelectList(uow.CoursesRepository.Get(), "CourseID", "CourseName", lesson.CourseID);
             return View(lesson);
         }
 
@@ -101,7 +103,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lesson lesson = db.Lessons.Find(id);
+            Lesson lesson = uow.LessonsRepository.Find(id);
             if (lesson == null)
             {
                 return HttpNotFound();
@@ -114,9 +116,9 @@ namespace FSDP.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Lesson lesson = db.Lessons.Find(id);
-            db.Lessons.Remove(lesson);
-            db.SaveChanges();
+            Lesson lesson = uow.LessonsRepository.Find(id);
+            uow.LessonsRepository.Remove(lesson);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
@@ -124,7 +126,7 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.Dispose();
             }
             base.Dispose(disposing);
         }

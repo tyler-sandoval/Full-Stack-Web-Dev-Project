@@ -4,18 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="670b296abc734df3a0c5ffe289c15324" Name="Diagram1">
-        <EntityTypeShape EntityType="FSDPModel.AspNetRole" Width="1.5" PointX="1.5" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FSDPModel.AspNetUser" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FSDPModel.CourseCompletion" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FSDPModel.Cours" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FSDPModel.Lesson" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FSDPModel.LessonView" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
-        <AssociationConnector Association="FSDPModel.FK_CourseCompletions_AspNetUsers" ManuallyRouted="false" />
+      <Diagram DiagramId="4d3d5d46b0894d7d9a9f68bb436e1a15" Name="Diagram1">
+        <EntityTypeShape EntityType="FSDPModel.AspNetRole" Width="1.5" PointX="5.375" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSDPModel.AspNetUser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSDPModel.CourseAssignment" Width="1.5" PointX="5.625" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSDPModel.CourseCompletion" Width="1.5" PointX="0.875" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSDPModel.Cours" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSDPModel.Lesson" Width="1.5" PointX="3.5" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="FSDPModel.FK_CourseAssignments_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="FSDPModel.FK_CourseAssignments_Courses" ManuallyRouted="false" />
         <AssociationConnector Association="FSDPModel.FK_CourseCompletions_Courses" ManuallyRouted="false" />
         <AssociationConnector Association="FSDPModel.FK_Lessons_Courses" ManuallyRouted="false" />
-        <AssociationConnector Association="FSDPModel.FK_LessonViews_Lessons" ManuallyRouted="false" />
         <AssociationConnector Association="FSDPModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FSDPModel.LessonView" Width="1.5" PointX="6.125" PointY="6.25" />
+        <AssociationConnector Association="FSDPModel.FK_LessonViews_Lessons" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

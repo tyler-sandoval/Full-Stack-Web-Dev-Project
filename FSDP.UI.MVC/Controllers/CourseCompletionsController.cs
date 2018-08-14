@@ -12,12 +12,14 @@ namespace FSDP.UI.MVC.Controllers
 {
     public class CourseCompletionsController : Controller
     {
-        private FSDPEntities db = new FSDPEntities();
+        //private FSDPEntities1 db = new FSDPEntities1();
+        UnitOfWork uow = new UnitOfWork();
 
         // GET: CourseCompletions
         public ActionResult Index()
         {
-            var courseCompletions = db.CourseCompletions.Include(c => c.AspNetUser).Include(c => c.Cours);
+            //var courseCompletions = db.CourseCompletions.Include(c => c.Cours);
+            var courseCompletions = uow.CourseCompletionsRepository.Get(includeProperties: "Cours");
             return View(courseCompletions.ToList());
         }
 
@@ -28,7 +30,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseCompletion courseCompletion = db.CourseCompletions.Find(id);
+            CourseCompletion courseCompletion = uow.CourseCompletionsRepository.Find(id);
             if (courseCompletion == null)
             {
                 return HttpNotFound();
@@ -39,8 +41,7 @@ namespace FSDP.UI.MVC.Controllers
         // GET: CourseCompletions/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email");
-            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
+            ViewBag.CourseID = new SelectList(uow.CourseCompletionsRepository.Get(), "CourseID", "CourseName");
             return View();
         }
 
@@ -53,13 +54,12 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.CourseCompletions.Add(courseCompletion);
-                db.SaveChanges();
+                uow.CourseCompletionsRepository.Add(courseCompletion);
+                uow.Save();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", courseCompletion.UserID);
-            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName", courseCompletion.CourseID);
+            ViewBag.CourseID = new SelectList(uow.CourseCompletionsRepository.Get(), "CourseID", "CourseName");
             return View(courseCompletion);
         }
 
@@ -70,13 +70,12 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseCompletion courseCompletion = db.CourseCompletions.Find(id);
+            CourseCompletion courseCompletion = uow.CourseCompletionsRepository.Find(id);
             if (courseCompletion == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", courseCompletion.UserID);
-            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName", courseCompletion.CourseID);
+            ViewBag.CourseID = new SelectList(uow.CourseCompletionsRepository.Get(), "CourseID", "CourseName");
             return View(courseCompletion);
         }
 
@@ -89,12 +88,11 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(courseCompletion).State = EntityState.Modified;
-                db.SaveChanges();
+                uow.CourseCompletionsRepository.Update(courseCompletion);
+                uow.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", courseCompletion.UserID);
-            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName", courseCompletion.CourseID);
+            ViewBag.CourseID = new SelectList(uow.CourseCompletionsRepository.Get(), "CourseID", "CourseName");
             return View(courseCompletion);
         }
 
@@ -105,7 +103,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseCompletion courseCompletion = db.CourseCompletions.Find(id);
+            CourseCompletion courseCompletion = uow.CourseCompletionsRepository.Find(id);
             if (courseCompletion == null)
             {
                 return HttpNotFound();
@@ -118,9 +116,9 @@ namespace FSDP.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CourseCompletion courseCompletion = db.CourseCompletions.Find(id);
-            db.CourseCompletions.Remove(courseCompletion);
-            db.SaveChanges();
+            CourseCompletion courseCompletion = uow.CourseCompletionsRepository.Find(id);
+            uow.CourseCompletionsRepository.Remove(id);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
@@ -128,7 +126,7 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.Dispose();
             }
             base.Dispose(disposing);
         }

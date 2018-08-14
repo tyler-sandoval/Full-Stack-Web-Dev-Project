@@ -12,12 +12,14 @@ namespace FSDP.UI.MVC.Controllers
 {
     public class CoursesController : Controller
     {
-        private FSDPEntities db = new FSDPEntities();
+        //private FSDPEntities1 db = new FSDPEntities1();
+        UnitOfWork uow = new UnitOfWork();
 
         // GET: Courses
         public ActionResult Index()
         {
-            return View(db.Courses.ToList());
+            var courses = uow.CoursesRepository.Get();
+            return View(courses);
         }
 
         // GET: Courses/Details/5
@@ -27,7 +29,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cours cours = db.Courses.Find(id);
+            Cours cours = uow.CoursesRepository.Find(id);
             if (cours == null)
             {
                 return HttpNotFound();
@@ -50,8 +52,8 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Courses.Add(cours);
-                db.SaveChanges();
+                uow.CoursesRepository.Add(cours);
+                uow.Save();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +67,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cours cours = db.Courses.Find(id);
+            Cours cours = uow.CoursesRepository.Find(id);
             if (cours == null)
             {
                 return HttpNotFound();
@@ -82,8 +84,8 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cours).State = EntityState.Modified;
-                db.SaveChanges();
+                uow.CoursesRepository.Update(cours);
+                uow.Save();
                 return RedirectToAction("Index");
             }
             return View(cours);
@@ -96,7 +98,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cours cours = db.Courses.Find(id);
+            Cours cours = uow.CoursesRepository.Find(id);
             if (cours == null)
             {
                 return HttpNotFound();
@@ -109,9 +111,9 @@ namespace FSDP.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cours cours = db.Courses.Find(id);
-            db.Courses.Remove(cours);
-            db.SaveChanges();
+            Cours cours = uow.CoursesRepository.Find(id);
+            uow.CoursesRepository.Remove(cours);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +121,7 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.Dispose();
             }
             base.Dispose(disposing);
         }

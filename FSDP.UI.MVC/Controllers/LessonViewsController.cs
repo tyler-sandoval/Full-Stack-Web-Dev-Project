@@ -12,12 +12,14 @@ namespace FSDP.UI.MVC.Controllers
 {
     public class LessonViewsController : Controller
     {
-        private FSDPEntities db = new FSDPEntities();
+        //private FSDPEntities1 db = new FSDPEntities1();
+        UnitOfWork uow = new UnitOfWork();
 
         // GET: LessonViews
         public ActionResult Index()
         {
-            var lessonViews = db.LessonViews.Include(l => l.Lesson);
+            //var lessonViews = db.LessonViews.Include(l => l.Lesson);
+            var lessonViews = uow.LessonViewsRepository.Get(includeProperties: "Lesson");
             return View(lessonViews.ToList());
         }
 
@@ -28,7 +30,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LessonView lessonView = db.LessonViews.Find(id);
+            LessonView lessonView = uow.LessonViewsRepository.Find(id);
             if (lessonView == null)
             {
                 return HttpNotFound();
@@ -39,7 +41,7 @@ namespace FSDP.UI.MVC.Controllers
         // GET: LessonViews/Create
         public ActionResult Create()
         {
-            ViewBag.LessonID = new SelectList(db.Lessons, "LessonID", "LessonTitle");
+            ViewBag.LessonID = new SelectList(uow.LessonsRepository.Get(), "LessonID", "LessonTitle");
             return View();
         }
 
@@ -52,12 +54,12 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.LessonViews.Add(lessonView);
-                db.SaveChanges();
+                uow.LessonViewsRepository.Add(lessonView);
+                uow.Save();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LessonID = new SelectList(db.Lessons, "LessonID", "LessonTitle", lessonView.LessonID);
+            ViewBag.LessonID = new SelectList(uow.LessonsRepository.Get(), "LessonID", "LessonTitle", lessonView.LessonID);
             return View(lessonView);
         }
 
@@ -68,12 +70,12 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LessonView lessonView = db.LessonViews.Find(id);
+            LessonView lessonView = uow.LessonViewsRepository.Find(id);
             if (lessonView == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LessonID = new SelectList(db.Lessons, "LessonID", "LessonTitle", lessonView.LessonID);
+            ViewBag.LessonID = new SelectList(uow.LessonsRepository.Get(), "LessonID", "LessonTitle", lessonView.LessonID);
             return View(lessonView);
         }
 
@@ -86,11 +88,11 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(lessonView).State = EntityState.Modified;
-                db.SaveChanges();
+                uow.LessonViewsRepository.Update(lessonView);
+                uow.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.LessonID = new SelectList(db.Lessons, "LessonID", "LessonTitle", lessonView.LessonID);
+            ViewBag.LessonID = new SelectList(uow.LessonsRepository.Get(), "LessonID", "LessonTitle", lessonView.LessonID);
             return View(lessonView);
         }
 
@@ -101,7 +103,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LessonView lessonView = db.LessonViews.Find(id);
+            LessonView lessonView = uow.LessonViewsRepository.Find(id);
             if (lessonView == null)
             {
                 return HttpNotFound();
@@ -114,9 +116,9 @@ namespace FSDP.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            LessonView lessonView = db.LessonViews.Find(id);
-            db.LessonViews.Remove(lessonView);
-            db.SaveChanges();
+            LessonView lessonView = uow.LessonViewsRepository.Find(id);
+            uow.LessonViewsRepository.Remove(lessonView);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
@@ -124,7 +126,7 @@ namespace FSDP.UI.MVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.Dispose();
             }
             base.Dispose(disposing);
         }

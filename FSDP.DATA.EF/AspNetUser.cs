@@ -17,7 +17,7 @@ namespace FSDP.DATA.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AspNetUser()
         {
-            this.CourseCompletions = new HashSet<CourseCompletion>();
+            this.CourseAssignments = new HashSet<CourseAssignment>();
             this.AspNetRoles = new HashSet<AspNetRole>();
         }
     
@@ -35,7 +35,7 @@ namespace FSDP.DATA.EF
         public string UserName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourseCompletion> CourseCompletions { get; set; }
+        public virtual ICollection<CourseAssignment> CourseAssignments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
     }

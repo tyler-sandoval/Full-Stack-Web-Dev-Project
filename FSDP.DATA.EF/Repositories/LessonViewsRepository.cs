@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace FSDP.DATA.EF.Repositories
 {
-    public class LessonViewsRepository : GenericRepository<LessonViews>
+    public class LessonViewsRepository : GenericRepository<LessonView>
     {
         public LessonViewsRepository(DbContext db) : base(db) { }
     }

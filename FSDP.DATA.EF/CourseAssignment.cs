@@ -12,13 +12,13 @@ namespace FSDP.DATA.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class CourseCompletion
+    public partial class CourseAssignment
     {
-        public int CourseCompletionID { get; set; }
-        public string UserID { get; set; }
+        public int CourseAssignments { get; set; }
         public int CourseID { get; set; }
-        public System.DateTime DateCompleted { get; set; }
+        public string UserID { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         public virtual Cours Cours { get; set; }
     }
 }

@@ -24,8 +24,18 @@
     <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
     <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
     <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="CourseCompletions" Relationship="Self.FK_CourseCompletions_AspNetUsers" FromRole="AspNetUsers" ToRole="CourseCompletions" />
+    <NavigationProperty Name="CourseAssignments" Relationship="Self.FK_CourseAssignments_AspNetUsers" FromRole="AspNetUsers" ToRole="CourseAssignments" />
     <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="CourseAssignment">
+    <Key>
+      <PropertyRef Name="CourseAssignments" />
+    </Key>
+    <Property Name="CourseAssignments" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_CourseAssignments_AspNetUsers" FromRole="CourseAssignments" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_CourseAssignments_Courses" FromRole="CourseAssignments" ToRole="Courses" />
   </EntityType>
   <EntityType Name="CourseCompletion">
     <Key>
@@ -35,7 +45,6 @@
     <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="CourseID" Type="Int32" Nullable="false" />
     <Property Name="DateCompleted" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_CourseCompletions_AspNetUsers" FromRole="CourseCompletions" ToRole="AspNetUsers" />
     <NavigationProperty Name="Cours" Relationship="Self.FK_CourseCompletions_Courses" FromRole="CourseCompletions" ToRole="Courses" />
   </EntityType>
   <EntityType Name="Cours">
@@ -46,6 +55,7 @@
     <Property Name="CourseName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CourseAssignments" Relationship="Self.FK_CourseAssignments_Courses" FromRole="Courses" ToRole="CourseAssignments" />
     <NavigationProperty Name="CourseCompletions" Relationship="Self.FK_CourseCompletions_Courses" FromRole="Courses" ToRole="CourseCompletions" />
     <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Courses" FromRole="Courses" ToRole="Lessons" />
   </EntityType>
@@ -61,27 +71,29 @@
     <Property Name="PdfFilename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Cours" Relationship="Self.FK_Lessons_Courses" FromRole="Lessons" ToRole="Courses" />
-    <NavigationProperty Name="LessonViews" Relationship="Self.FK_LessonViews_Lessons" FromRole="Lessons" ToRole="LessonViews" />
+    <NavigationProperty Name="LessonViews" Relationship="FSDPModel.FK_LessonViews_Lessons" FromRole="Lesson" ToRole="LessonView" />
   </EntityType>
-  <EntityType Name="LessonView">
-    <Key>
-      <PropertyRef Name="LessonViewID" />
-    </Key>
-    <Property Name="LessonViewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="LessonID" Type="Int32" Nullable="false" />
-    <Property Name="DateViewed" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="Lesson" Relationship="Self.FK_LessonViews_Lessons" FromRole="LessonViews" ToRole="Lessons" />
-  </EntityType>
-  <Association Name="FK_CourseCompletions_AspNetUsers">
+  <Association Name="FK_CourseAssignments_AspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-    <End Role="CourseCompletions" Type="Self.CourseCompletion" Multiplicity="*" />
+    <End Role="CourseAssignments" Type="Self.CourseAssignment" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AspNetUsers">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="CourseCompletions">
+      <Dependent Role="CourseAssignments">
         <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseAssignments_Courses">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
+    <End Role="CourseAssignments" Type="Self.CourseAssignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="CourseAssignments">
+        <PropertyRef Name="CourseID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -109,32 +121,24 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_LessonViews_Lessons">
-    <End Role="Lessons" Type="Self.Lesson" Multiplicity="1" />
-    <End Role="LessonViews" Type="Self.LessonView" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Lessons">
-        <PropertyRef Name="LessonID" />
-      </Principal>
-      <Dependent Role="LessonViews">
-        <PropertyRef Name="LessonID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="AspNetUserRoles">
     <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="FSDPEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="FSDPEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="CourseAssignments" EntityType="Self.CourseAssignment" />
     <EntitySet Name="CourseCompletions" EntityType="Self.CourseCompletion" />
     <EntitySet Name="Courses" EntityType="Self.Cours" />
     <EntitySet Name="Lessons" EntityType="Self.Lesson" />
-    <EntitySet Name="LessonViews" EntityType="Self.LessonView" />
-    <AssociationSet Name="FK_CourseCompletions_AspNetUsers" Association="Self.FK_CourseCompletions_AspNetUsers">
+    <AssociationSet Name="FK_CourseAssignments_AspNetUsers" Association="Self.FK_CourseAssignments_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="CourseCompletions" EntitySet="CourseCompletions" />
+      <End Role="CourseAssignments" EntitySet="CourseAssignments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseAssignments_Courses" Association="Self.FK_CourseAssignments_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="CourseAssignments" EntitySet="CourseAssignments" />
     </AssociationSet>
     <AssociationSet Name="FK_CourseCompletions_Courses" Association="Self.FK_CourseCompletions_Courses">
       <End Role="Courses" EntitySet="Courses" />
@@ -144,13 +148,36 @@
       <End Role="Courses" EntitySet="Courses" />
       <End Role="Lessons" EntitySet="Lessons" />
     </AssociationSet>
-    <AssociationSet Name="FK_LessonViews_Lessons" Association="Self.FK_LessonViews_Lessons">
-      <End Role="Lessons" EntitySet="Lessons" />
-      <End Role="LessonViews" EntitySet="LessonViews" />
-    </AssociationSet>
     <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
+    <EntitySet Name="LessonViews" EntityType="FSDPModel.LessonView" />
+    <AssociationSet Name="FK_LessonViews_Lessons" Association="FSDPModel.FK_LessonViews_Lessons">
+      <End Role="Lesson" EntitySet="Lessons" />
+      <End Role="LessonView" EntitySet="LessonViews" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="LessonView">
+    <Key>
+      <PropertyRef Name="LessonViewID" />
+    </Key>
+    <Property Name="LessonViewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="LessonID" Type="Int32" Nullable="false" />
+    <Property Name="DateViewed" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Lesson" Relationship="FSDPModel.FK_LessonViews_Lessons" FromRole="LessonView" ToRole="Lesson" />
+  </EntityType>
+  <Association Name="FK_LessonViews_Lessons">
+    <End Type="FSDPModel.Lesson" Role="Lesson" Multiplicity="1" />
+    <End Type="FSDPModel.LessonView" Role="LessonView" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lesson">
+        <PropertyRef Name="LessonID" />
+      </Principal>
+      <Dependent Role="LessonView">
+        <PropertyRef Name="LessonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
