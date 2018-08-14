@@ -10,9 +10,50 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web;
+using System.Net.Mail;
+using System.Net;
 
 namespace FSDP.UI.MVC.Models
 {
+    public class EmailService : IIdentityMessageService
+    {
+        public Task SendAsync(IdentityMessage message)
+        {
+            // this is the envelope that our email is going to be sent in
+            MailMessage msg = new MailMessage(
+                "no-reply@tylersandoval.com",
+                message.Destination,
+                message.Subject,
+                message.Body
+                );
+            // below allows the hyperlink to be a clickable hyperlink to verify email instead of plain text
+            msg.IsBodyHtml = true;
+
+            // This is our post office from which it will be sent from
+            SmtpClient client = new SmtpClient("mail.tylersandoval.com");
+            client.Credentials = new NetworkCredential("no-reply@tylersandoval.com", "Vivian0221!");
+
+            // how our verify email is sent
+            using (client)
+            {
+                client.Send(msg);
+            }
+
+            // Plug in your email service here to send an email.
+            return Task.FromResult(0);
+        }
+    }
+
+    public class SmsService : IIdentityMessageService
+    {
+        public Task SendAsync(IdentityMessage message)
+        {
+            // Plug in your SMS service here to send a text message.
+            return Task.FromResult(0);
+        }
+    }
+
+
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
 
     public class ApplicationUserManager : UserManager<ApplicationUser>
@@ -79,24 +120,6 @@ namespace FSDP.UI.MVC.Models
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
             return new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<ApplicationDbContext>()));
-        }
-    }
-
-    public class EmailService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
-        }
-    }
-
-    public class SmsService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Plug in your sms service here to send a text message.
-            return Task.FromResult(0);
         }
     }
 

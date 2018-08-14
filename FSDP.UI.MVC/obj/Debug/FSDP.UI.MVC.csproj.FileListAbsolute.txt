@@ -1,3 +1,4 @@
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\obj\Debug\FSDP.UI.MVC.csprojResolveAssemblyReference.cache
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\roslyn\csc.exe
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -66,6 +67,5 @@ C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\obj\Debug\FSDP.UI.MVC.csprojResolveAssemblyReference.cache
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\obj\Debug\FSDP.UI.MVC.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\obj\Debug\FSDP.UI.MVC.pdb
