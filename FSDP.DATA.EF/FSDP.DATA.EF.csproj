@@ -84,6 +84,10 @@
     <Compile Include="LessonView.cs">
       <DependentUpon>FSDP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\CourseCompletionsMetadata.cs" />
+    <Compile Include="Metadata\CourseMetadata.cs" />
+    <Compile Include="Metadata\LessonMetadata.cs" />
+    <Compile Include="Metadata\LessonViewsMetadata.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,7 +106,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Metadata\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
