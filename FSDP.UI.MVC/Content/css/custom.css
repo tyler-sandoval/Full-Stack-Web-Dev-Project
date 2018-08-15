@@ -1,0 +1,16 @@
+﻿header#topNavBarCustom {
+    background-color: teal;
+    color: black;
+    position: absolute;
+}
+
+#customBodyLayout {
+    position: relative;
+    top: 50px;
+}
+
+#customFooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%
+}
