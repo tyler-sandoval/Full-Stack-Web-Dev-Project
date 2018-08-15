@@ -4,39 +4,42 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div id="bodyNavSeperatorDiv">
 
-<div>
-    <h4>CourseCompletion</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCompleted)
-        </dt>
+    <h2>Details</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.DateCompleted)
-        </dd>
+    <div>
+        <h4>CourseCompletion</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCompleted)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateCompleted)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUser.Email)
-        </dd>
+            <dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cours.CourseName)
-        </dt>
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cours.CourseName)
-        </dd>
+            <dd>
 
-    </dl>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Cours.CourseName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Cours.CourseName)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CourseCompletionID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CourseCompletionID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

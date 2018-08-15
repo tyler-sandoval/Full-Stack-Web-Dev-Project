@@ -1,16 +1,21 @@
-﻿header#topNavBarCustom {
-    background-color: teal;
-    color: black;
-    position: absolute;
+﻿
+#customBodyLayout {
+
+    padding: 1.75em;
+    background-color: lightskyblue;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 1.5em;
 }
 
-#customBodyLayout {
-    position: relative;
-    top: 50px;
+#bodyNavSeperatorDiv{
+    margin-top: 125px;
 }
+
+
 
 #customFooter {
-    position: fixed;
-    bottom: 0;
+    position:relative;
+    bottom: 0vh;
     width: 100%
 }

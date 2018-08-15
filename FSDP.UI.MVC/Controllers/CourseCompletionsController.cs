@@ -41,6 +41,7 @@ namespace FSDP.UI.MVC.Controllers
         // GET: CourseCompletions/Create
         public ActionResult Create()
         {
+            ViewBag.UserID = new SelectList(uow.CourseCompletionsRepository.Get(), "UserId", "UserID");
             ViewBag.CourseID = new SelectList(uow.CourseCompletionsRepository.Get(), "CourseID", "CourseName");
             return View();
         }
@@ -59,6 +60,7 @@ namespace FSDP.UI.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.UserID = new SelectList(uow.CourseCompletionsRepository.Get(), "UserId", "UserID");
             ViewBag.CourseID = new SelectList(uow.CourseCompletionsRepository.Get(), "CourseID", "CourseName");
             return View(courseCompletion);
         }
@@ -75,6 +77,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.UserID = new SelectList(uow.CourseCompletionsRepository.Get(), "UserId", "UserID");
             ViewBag.CourseID = new SelectList(uow.CourseCompletionsRepository.Get(), "CourseID", "CourseName");
             return View(courseCompletion);
         }
@@ -92,6 +95,7 @@ namespace FSDP.UI.MVC.Controllers
                 uow.Save();
                 return RedirectToAction("Index");
             }
+            ViewBag.UserID = new SelectList(uow.CourseCompletionsRepository.Get(), "UserId", "UserID");
             ViewBag.CourseID = new SelectList(uow.CourseCompletionsRepository.Get(), "CourseID", "CourseName");
             return View(courseCompletion);
         }
