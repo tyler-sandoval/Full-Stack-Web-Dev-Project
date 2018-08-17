@@ -224,8 +224,8 @@
     <Content Include="Content\img\clients\04.png" />
     <Content Include="Content\img\clients\05.png" />
     <Content Include="Content\img\clients\06.png" />
-    <Content Include="Content\img\logo-dark.png" />
     <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\logodark.png" />
     <Content Include="Content\img\widgets\gmap-pin.png" />
     <Content Include="Content\js\components\gmap.js" />
     <Content Include="Content\js\components\gmap.min.js" />
@@ -267,7 +267,7 @@
     <Content Include="Content\vendor\swiper\js\swiper.jquery.min.js" />
     <Content Include="Content\vendor\swiper\js\swiper.js" />
     <Content Include="Content\vendor\swiper\js\swiper.min.js" />
-    <Content Include="favicon.ico" />
+    <Content Include="faviconNew.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />

@@ -87,10 +87,12 @@
     <Compile Include="LessonView.cs">
       <DependentUpon>FSDP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\CourseAssignmentMetadata.cs" />
     <Compile Include="Metadata\CourseCompletionsMetadata.cs" />
     <Compile Include="Metadata\CourseMetadata.cs" />
     <Compile Include="Metadata\LessonMetadata.cs" />
     <Compile Include="Metadata\LessonViewsMetadata.cs" />
+    <Compile Include="Repositories\AspNetUsersRepository.cs" />
     <Compile Include="Repositories\CourseAssignmentsRepository.cs" />
     <Compile Include="Repositories\CourseCompletionsRepository.cs" />
     <Compile Include="Repositories\CoursesRespository.cs" />

@@ -20,10 +20,11 @@ namespace FSDP.DATA.EF//.Metadata
         public string Description { get; set; }
 
         //bool does not require any further data annotations
+        [Display(Name = "Active?")]
         public bool IsActive { get; set; }
 
     }
 
     [MetadataType(typeof(CourseMetadata))]
-    public partial class Courses { }
+    public partial class Cours { }
 }

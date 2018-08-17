@@ -1,14 +1,16 @@
 ﻿@model IEnumerable<FSDP.DATA.EF.Lesson>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lessons Available";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if(User.IsInRole("Admin")) { 
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -53,9 +55,14 @@
             @Html.DisplayFor(modelItem => item.Cours.CourseName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.LessonID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.LessonID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.LessonID })
+            @Html.ActionLink("Details", "Details", new { id = item.LessonID }) 
+
+            @if(User.IsInRole("Admin")) { 
+                @:|
+                @Html.ActionLink("Edit", "Edit", new { id=item.LessonID }) 
+                @:|
+                @Html.ActionLink("Delete", "Delete", new { id=item.LessonID })
+            }
         </td>
     </tr>
 }

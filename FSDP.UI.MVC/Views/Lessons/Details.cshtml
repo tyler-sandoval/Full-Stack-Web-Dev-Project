@@ -1,14 +1,14 @@
 ﻿@model FSDP.DATA.EF.Lesson
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Details for";
 }
 
 <div id="bodyNavSeperatorDiv">
-    <h2>Details</h2>
+    <h2>@ViewBag.Title</h2>
 
     <div>
-        <h4>Lesson</h4>
+        <h4>@Model.LessonTitle</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>

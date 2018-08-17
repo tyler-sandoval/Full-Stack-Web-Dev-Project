@@ -9,23 +9,23 @@ namespace FSDP.DATA.EF//.Metadata
 {
     public class CourseCompletionsMetadata
     {
-        [Required(ErrorMessage = "* User ID Required.")]
-        [Display(Name = "User ID")]
-        [StringLength(128, ErrorMessage = "* User ID cannot exceed 128 characters.")]
+        [Required(ErrorMessage = "* User Required.")]
+        [Display(Name = "User")]
+        [DisplayFormat(ApplyFormatInEditMode = true)]
         public string UserID { get; set; }
 
-        [Required(ErrorMessage = "* Lesson ID Required.")]
-        [Display(Name = "Lesson ID")]
-        [Range(0, int.MaxValue, ErrorMessage = "* Invalid Range, Try Again.")]
+        [Required(ErrorMessage = "* Course Required.")]
+        [Display(Name = "Course")]
+        [DisplayFormat(ApplyFormatInEditMode = true)]
         public int CourseID { get; set; }
 
         [Required(ErrorMessage = "* Date Viewed Required.")]
         [Display(Name = "Date Viewed")]
-        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public System.DateTime DateCompleted { get; set; }
 
     }
 
     [MetadataType(typeof(CourseCompletionsMetadata))]
-    public partial class CourseCompletions { }
+    public partial class CourseCompletion { }
 }

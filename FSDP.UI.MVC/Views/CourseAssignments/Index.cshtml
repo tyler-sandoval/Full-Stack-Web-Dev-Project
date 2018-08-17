@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<FSDP.DATA.EF.CourseAssignment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Assigned Courses";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -20,21 +23,28 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cours.CourseName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseAssignments }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseAssignments }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseAssignments })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cours.CourseName)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.CourseAssignments })
+
+                @if (User.IsInRole("Admin"))
+                {
+                    @:|
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseAssignments })
+                    @:|
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseAssignments })
+                }
+            </td>
+        </tr>
+    }
 
 </table>
 

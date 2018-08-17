@@ -77,7 +77,20 @@ namespace FSDP.DATA.EF
             }
         }
 
-        public void Save()
+        private AspNetUsersRepository _aspNetUsersRepository;
+        public AspNetUsersRepository AspNetUsersRepository
+        {
+            get
+            {
+                if (this._aspNetUsersRepository == null)
+                {
+                    this._aspNetUsersRepository = new AspNetUsersRepository(context);
+                }
+                return _aspNetUsersRepository;
+            }
+        }
+
+            public void Save()
         {
             context.SaveChanges();
         }

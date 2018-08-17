@@ -1,61 +1,46 @@
 ﻿@model FSDP.DATA.EF.Cours
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Course Delete";
 }
+<div id="bodyNavSeperatorDiv">
+    <h3>Are you sure you want to delete @Model.CourseName?</h3>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CourseName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CourseName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CourseName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IsActive)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
+        </dl>
 
-    </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
-
-@section pageSpecificSlider{
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img class="img-responsive" src="~/Content/img/1920x1080/fsdp.png" alt="Slider Image">
-            <div class="container">
-                <div class="carousel-centered">
-                    <div class="margin-b-40">
-                        <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Courses</h1>
-                        <h2>Delete</h2>
-                    </div>
-                    <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Explore</a>
-                </div>
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
             </div>
-        </div>
+        }
     </div>
-}
+</div>

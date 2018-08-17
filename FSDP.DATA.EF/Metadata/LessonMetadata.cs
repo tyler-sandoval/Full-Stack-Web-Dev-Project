@@ -24,15 +24,18 @@ namespace FSDP.DATA.EF//.Metadata
         [StringLength(300, ErrorMessage = "* Introduction cannot exceed 300 characters.")]
         public string Introduction { get; set; }
 
+        [Display(Name = "Video")]
         [DisplayFormat(NullDisplayText = "- Video not available -")]
         [StringLength(250, ErrorMessage = "* Video URL cannot exceed 250 characters.")]
         public string VideoUrl { get; set; }
 
+        [Display(Name = "PDF")]
         [DisplayFormat(NullDisplayText = "- PDF not available -")]
         [StringLength(100, ErrorMessage = "* PDF File Name cannot exceed 100 characters.")]
         public string PdfFilename { get; set; }
 
-        //bool does not require any data annotations
+        //bool does not require any data annotations for validation
+        [Display(Name = "Active?")]
         public bool IsActive { get; set; }
 
     }

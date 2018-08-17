@@ -1,15 +1,14 @@
 ﻿@model FSDP.DATA.EF.CourseAssignment
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Assignment for " + Model.AspNetUser.Email;
 }
 
 <div id="bodyNavSeperatorDiv">
 
-    <h2>Details</h2>
 
     <div>
-        <h4>CourseAssignment</h4>
+        <h2>@ViewBag.Title</h2>
         <hr />
         <dl class="dl-horizontal">
             <dt>
