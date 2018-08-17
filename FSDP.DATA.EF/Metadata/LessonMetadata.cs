@@ -24,7 +24,7 @@ namespace FSDP.DATA.EF//.Metadata
         [StringLength(300, ErrorMessage = "* Introduction cannot exceed 300 characters.")]
         public string Introduction { get; set; }
 
-        [Display(Name = "Video")]
+        [Display(Name = "Video URL")]
         [DisplayFormat(NullDisplayText = "- Video not available -")]
         [StringLength(250, ErrorMessage = "* Video URL cannot exceed 250 characters.")]
         public string VideoUrl { get; set; }

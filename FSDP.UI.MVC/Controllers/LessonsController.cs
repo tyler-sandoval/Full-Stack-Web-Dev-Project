@@ -8,7 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using FSDP.DATA.EF;
 using FSDP.DATA.EF.Repositories;
-
+using System.IO;
+using System.Drawing;
+using FSDP.UI.MVC.Utilties;
 
 namespace FSDP.UI.MVC.Controllers
 {
@@ -55,10 +57,33 @@ namespace FSDP.UI.MVC.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoUrl,PdfFilename,IsActive")] Lesson lesson)
+        public ActionResult Create([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoUrl,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase PdfFilename)
         {
             if (ModelState.IsValid)
             {
+                string pdfName = "";
+
+                if (PdfFilename != null)
+                {
+                    string pdfExt = Path.GetExtension(PdfFilename.FileName).ToLower();
+                    string[] allowedExtensions = { ".pdf", ".docx", ".xlsx" };
+
+                    if (allowedExtensions.Contains(pdfExt))
+                    {
+                        //save with original file
+                        pdfName = Path.GetFileName(PdfFilename.FileName);
+
+                        //set path on server where pdfs stored
+                        string savePath = Server.MapPath("~/Content/img/pdfs/");
+
+                        //upload the file
+                        FileUtilities.UploadFile(savePath, pdfName, PdfFilename);
+
+
+                    }
+                }
+
+                lesson.PdfFilename = pdfName;
                 uow.LessonsRepository.Add(lesson);
                 uow.Save();
                 return RedirectToAction("Index");
@@ -91,13 +116,31 @@ namespace FSDP.UI.MVC.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoUrl,PdfFilename,IsActive")] Lesson lesson)
+        public ActionResult Edit([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoUrl,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase PdfFilename)
         {
             if (ModelState.IsValid)
             {
+                string pdfName = lesson.PdfFilename;
+
+                if (PdfFilename != null)
+                {
+                    if (PdfFilename.FileName != pdfName)
+                    {
+                        string pdfExt = Path.GetExtension(PdfFilename.FileName).ToLower();
+                        string[] allowedExtensions = { ".pdf", ".docx", ".xslx" };
+
+                        if (allowedExtensions.Contains(pdfExt))
+                        {
+                            pdfName = Path.GetFileName(PdfFilename.FileName);
+                            string savePath = Server.MapPath("~/Content/img/pdfs/");
+                        }
+                    }
+
+                }
+                lesson.PdfFilename = pdfName;
                 uow.LessonsRepository.Update(lesson);
                 uow.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction($"Details/{lesson.LessonID}");
             }
             ViewBag.CourseID = new SelectList(uow.CoursesRepository.Get(), "CourseID", "CourseName", lesson.CourseID);
             return View(lesson);

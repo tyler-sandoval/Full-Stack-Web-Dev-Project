@@ -74,18 +74,20 @@
                             <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("About", "Home")">FAQ</a></li>
                             <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Contact", "Home")">Contact</a></li>
 
-                            <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "Courses")">Courses</a></li>
-                            <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "CourseAssignments")">Assignments</a></li>
-                            <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "CourseCompletions")">Completions</a></li>
-
-                            <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "Lessons")">Lessons</a></li>
-                            <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "LessonViews")">Views</a></li>
-
-                            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                            @if (Request.IsAuthenticated)
                             {
-                                <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "RolesAdmin")">Roles Admin</a></li>
-                                <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "UsersAdmin")">Users Admin</a></li>
-                            }
+                                <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "Courses")">Courses</a></li>
+                                <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "CourseCompletions")">Completions</a></li>
+                                <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "Lessons")">Lessons</a></li>
+                                <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "LessonViews")">Views</a></li>
+
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "CourseAssignments")">Assignments</a></li>
+                                    <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "RolesAdmin")">Roles Admin</a></li>
+                                    <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "UsersAdmin")">Users Admin</a></li>
+                                }
+                             }
 
                         </ul>
 

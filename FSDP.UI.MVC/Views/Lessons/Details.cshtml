@@ -32,7 +32,9 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VideoUrl)
+                @*@Html.DisplayFor(model => model.VideoUrl)*@
+                <iframe typeof="text/html" width="640" height=" 385" src="@Model.VideoUrl" frameborder="0">
+                </iframe>
             </dd>
 
             <dt>
@@ -40,7 +42,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.PdfFilename)
+                <img src="@Url.Content("~/Content/img/pdfs/" + Model.PdfFilename)" alt="@Model.LessonTitle" ></img>
             </dd>
 
             <dt>
