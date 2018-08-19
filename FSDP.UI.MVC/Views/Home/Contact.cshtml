@@ -1,24 +1,93 @@
-﻿@{
+﻿@model  FSDP.UI.MVC.Models.ContactViewModel
+
+@{
     ViewBag.Title = "Contact";
 }
 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<div id="bodyNavSeperatorDiv">
-    <hgroup>
-        <h2>@ViewBag.Title.</h2>
-        <h3>@ViewBag.Message</h3>
-    </hgroup>
-    <div>
-        <address>
-            One Microsoft Way<br />
-            Redmond, WA 98052-6399<br />
-            <abbr title="Phone">P:</abbr>
-            425.555.0100
-        </address>
 
-        <address>
-            <i class="icon-envelope"></i><strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-            <i class="icon-envelope"></i><strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-        </address>
+<div id="contact-page" class="container">
+    <div class="bg">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="title text-center">Contact <strong>Us</strong></h2>
+                <div id="gmap" class="contact-map google-maps">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3102.023561985009!2d-94.61137504846033!3d38.96912997945933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87c0e925e366ed0f%3A0x73aec4617abd2f03!2sCentriq+Training!5e0!3m2!1sen!2sus!4v1468708493385" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="contact-form">
+                    <h2 class="title text-center">Get In Touch</h2>
+                    <div class="status alert alert-success" style="display: none"></div>
+                    <form id="main-contact-form" class="contact-form row" name="contact-form" method="get" onsubmit="validateForm(event)" action="#">
+                        <div class="form-group col-md-6">
+                            <input type="text" name="name" class="form-control" placeholder="Name">
+                            <span id="nameVal" class="invalid"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="text" name="email" class="form-control" placeholder="Email">
+                            <span id="emailVal" class="invalid"></span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="text" name="subject" class="form-control" placeholder="Subject">
+                            <span id="subjectVal" class="invalid"></span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <textarea name="message" id="message" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
+                            <span id="messageVal" class="invalid"></span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="contact-info">
+                    <h2 class="title text-center">Contact Info</h2>
+                    <address>
+                        <p>Centriq Training cStore</p>
+                        <p>8700 Stateline Ave</p>
+                        <p>Leawood, KS 66206</p>
+                        <p>Phone: 913-322-7000</p>
+                        <p>Email: info@centriqcstore.com</p>
+                    </address>
+                    <div class="social-networks">
+                        <h2 class="title text-center">Social Networking</h2>
+                        <ul>
+                            <li><a href="https://www.facebook.com/CentriqTraining/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://twitter.com/CentriqTraining" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://www.linkedin.com/company/centriq-foss-training" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="https://www.youtube.com/user/CentriqTraining" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                            <li><a href="#https://plus.google.com/108553092060324883743" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+}
+
+@section pageSpecificSlider {
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="img-responsive" src="~/Content/img/1920x1080/fsdp.png" alt="Slider Image">
+            <div class="container">
+                <div class="carousel-centered">
+                    <div class="margin-b-40">
+                        <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">FSDP Merchant Services</h1>
+                        <p>A Learning Management System Web Application <br /> For Merchant Services</p>
+                    </div>
+                    <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Explore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

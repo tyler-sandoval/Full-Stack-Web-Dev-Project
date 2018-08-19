@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FSDP.UI.MVC.Utilties
 {
@@ -16,9 +17,14 @@ namespace FSDP.UI.MVC.Utilties
             file.SaveAs(savePath + fileName);
         }
 
-        public static void UploadVideo(string fileName, string embedUrl)
+
+        public static void Delete(string path, string oldFileName)
         {
-            
+            FileInfo file = new FileInfo(path);
+            if (file.Exists)
+            {
+                file.Delete();
+            }
         }
 
         public static void DeleteFile(string path)
@@ -47,6 +53,26 @@ namespace FSDP.UI.MVC.Utilties
             }
         }
 
+
+        public static byte[] GetBytesFromFile(string fullFilePath)
+        {
+            FileStream fs = null;
+            try
+            {
+                fs = File.OpenRead(fullFilePath);
+                byte[] bytes = new byte[fs.Length];
+                fs.Read(bytes, 0, Convert.ToInt32(fs.Length));
+                return bytes;
+            }
+            finally
+            {
+                if (fs != null)
+                {
+                    fs.Close();
+                    fs.Dispose();
+                }
+            }
+        }
 
     }
 }

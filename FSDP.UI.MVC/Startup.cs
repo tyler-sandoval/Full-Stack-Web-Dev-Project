@@ -1,4 +1,10 @@
-﻿using Owin;
+using Owin;
+using System;
+using Microsoft.Owin;
+using System.IO;
+using System.Web.Http;
+
+
 
 namespace FSDP.UI.MVC
 {
@@ -7,6 +13,11 @@ namespace FSDP.UI.MVC
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            
+
+
         }
+
     }
+
 }

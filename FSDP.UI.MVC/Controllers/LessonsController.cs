@@ -24,8 +24,9 @@ namespace FSDP.UI.MVC.Controllers
         public ActionResult Index()
         {
             //var lessons = db.Lessons.Include(l => l.Cours);
-            var lessons = uow.LessonsRepository.Get(includeProperties: "Cours");
-            return View(lessons.ToList());
+            var lesson = uow.LessonsRepository.Get(includeProperties: "Cours");
+
+            return View(lesson);
         }
 
         // GET: Lessons/Details/5
@@ -66,12 +67,12 @@ namespace FSDP.UI.MVC.Controllers
                 if (PdfFilename != null)
                 {
                     string pdfExt = Path.GetExtension(PdfFilename.FileName).ToLower();
-                    string[] allowedExtensions = { ".pdf", ".docx", ".xlsx" };
+                    string allowedExtensions = ".pdf";
 
                     if (allowedExtensions.Contains(pdfExt))
                     {
                         //save with original file
-                        pdfName = Path.GetFileName(PdfFilename.FileName);
+                        pdfName = Path.GetFileName(PdfFilename.FileName).ToString();
 
                         //set path on server where pdfs stored
                         string savePath = Server.MapPath("~/Content/img/pdfs/");
@@ -118,34 +119,40 @@ namespace FSDP.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoUrl,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase PdfFilename)
         {
+            string pdfName = "";
             if (ModelState.IsValid)
             {
-                string pdfName = lesson.PdfFilename;
-
+                string oldFileName = uow.LessonsRepository.UntrackedFind(lesson.LessonID).PdfFilename;
                 if (PdfFilename != null)
                 {
-                    if (PdfFilename.FileName != pdfName)
-                    {
-                        string pdfExt = Path.GetExtension(PdfFilename.FileName).ToLower();
-                        string[] allowedExtensions = { ".pdf", ".docx", ".xslx" };
+                    var savePath = Server.MapPath("~/Content/img/pdfs/");
+                    FileUtilities.Delete(savePath, oldFileName);
 
-                        if (allowedExtensions.Contains(pdfExt))
-                        {
-                            pdfName = Path.GetFileName(PdfFilename.FileName);
-                            string savePath = Server.MapPath("~/Content/img/pdfs/");
-                        }
+                    pdfName = PdfFilename.FileName;
+                    string pdfExt = ".png";
+                    string[] allowedExtensions = { ".pdf", ".docx", ".xslx" };
+
+                    if (allowedExtensions.Contains(pdfExt))
+                    {
+                        pdfName = Path.GetFileName(PdfFilename.FileName);
+                        string newSavePath = Server.MapPath("~/Content/img/pdfs/");
+                        FileUtilities.UploadFile(newSavePath, pdfName, PdfFilename);
+
+                    }
+                    else
+                    {
+                        lesson.PdfFilename = oldFileName;
                     }
 
                 }
-                lesson.PdfFilename = pdfName;
                 uow.LessonsRepository.Update(lesson);
                 uow.Save();
                 return RedirectToAction($"Details/{lesson.LessonID}");
             }
             ViewBag.CourseID = new SelectList(uow.CoursesRepository.Get(), "CourseID", "CourseName", lesson.CourseID);
             return View(lesson);
-        }
 
+        }
         // GET: Lessons/Delete/5
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)

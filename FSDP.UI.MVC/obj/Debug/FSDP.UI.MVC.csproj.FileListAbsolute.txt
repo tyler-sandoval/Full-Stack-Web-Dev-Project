@@ -33,7 +33,13 @@ C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Newtonsoft.Json.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Owin.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\RestSharp.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\StarDocsSDK.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Net.Http.Formatting.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Helpers.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Http.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Http.Owin.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Http.WebHost.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Mvc.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Optimization.dll
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Razor.dll
@@ -46,6 +52,11 @@ C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Newtonsoft.Json.xml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Net.Http.Formatting.xml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Http.xml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Http.Owin.xml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Http.WebHost.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Helpers.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Mvc.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.Optimization.xml
@@ -54,7 +65,6 @@ C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\System.Web.WebPages.Razor.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Antlr3.Runtime.pdb
-C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Newtonsoft.Json.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\EntityFramework.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\EntityFramework.SqlServer.xml
 C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.UI.MVC\bin\Microsoft.Owin.xml

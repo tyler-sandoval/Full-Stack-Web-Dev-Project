@@ -1,5 +1,6 @@
 ﻿@model FSDP.DATA.EF.Lesson
 
+
 @{
     ViewBag.Title = "Details for";
 }
@@ -33,7 +34,8 @@
 
             <dd>
                 @*@Html.DisplayFor(model => model.VideoUrl)*@
-                <iframe typeof="text/html" width="640" height=" 385" src="@Model.VideoUrl" frameborder="0">
+                <iframe width="560" height="315" src="@Model.VideoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                    @*<img src=$("http://i3.ytimg.com/vi/{0}/mqdefault.jpg", @Model.VideoUrl ) />*@
                 </iframe>
             </dd>
 
@@ -42,7 +44,10 @@
             </dt>
 
             <dd>
-                <img src="@Url.Content("~/Content/img/pdfs/" + Model.PdfFilename)" alt="@Model.LessonTitle" ></img>
+                @*<img src="@Url.Content("~/Content/img/pdfs/" + Model.PdfFilename)" alt="@Model.LessonTitle" ></img>*@
+                <div class="row">
+                    <a target="_blank" href="@Url.Action("DisplayPDF", "StarDocs", Model.LessonID)" >Click to View PDF</a>
+                </div>
             </dd>
 
             <dt>
@@ -63,7 +68,7 @@
 
         </dl>
     </div>
-    <hr/>
+    <hr />
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.LessonID }) |
         @Html.ActionLink("Back to List", "Index")

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4d3d5d46b0894d7d9a9f68bb436e1a15" Name="Diagram1">
+      <Diagram DiagramId="4d3d5d46b0894d7d9a9f68bb436e1a15" Name="Diagram1" ZoomLevel="95">
         <EntityTypeShape EntityType="FSDPModel.AspNetRole" Width="1.5" PointX="5.375" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FSDPModel.AspNetUser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FSDPModel.CourseAssignment" Width="1.5" PointX="5.625" PointY="3.5" IsExpanded="true" />

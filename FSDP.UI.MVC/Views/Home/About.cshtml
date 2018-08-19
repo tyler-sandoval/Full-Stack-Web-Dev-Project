@@ -2,14 +2,63 @@
     ViewBag.Title = "About";
 }
 
-<div id="bodyNavSeperatorDiv">
-    <hgroup>
-        <h2>@ViewBag.Title.</h2>
-        <h3>@ViewBag.Message</h3>
-    </hgroup>
-    <div class="row-fluid">
-        <div class="span12">
-            <p>Use this area to provide additional information.</p>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 padding-right">
+                <h2 class="title text-center">Frequently Asked Questions</h2>
+                <div id="accordion">
+                    <h3>How can I contack you for assistance?</h3>
+                    <div>
+                        <p>Should you require any assistance, please use the contact form on the Contact page to submit an email and we will respond as quickly as we can.</p>
+                    </div>
+                    <h3>Who can I contact if I am having problems with my account?</h3>
+                    <div>
+                        <p> Please visit our <a href="contact.html">contact</a> page for contact information or to send us an email. </p>
+                    </div>
+                    <h3>Where are FSDP Merchant Services headquarters?</h3>
+                    <div>
+                        <p> Our headquarters is located at 8700 Stateline Road in Leawood, KS. </p>
+                    </div>
+                    <h3>What types of solutions do you offer</h3>
+                    <div>
+                        <p> We offer the following kinds of solutions </p>
+                        <ul>
+                            <li>Stand-alone Point-of-Sale devices</li>
+                            <li>Mobile Processing Soluions</li>
+                            <li>eCommerce Processing Solutions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+
+
+@section pageSpecificSlider {
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="img-responsive" src="~/Content/img/1920x1080/fsdp.png" alt="Slider Image">
+            <div class="container">
+                <div class="carousel-centered">
+                    <div class="margin-b-40">
+                        <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">FSDP Merchant Services</h1>
+                        <p>A Learning Management System Web Application <br /> For Merchant Services</p>
+                    </div>
+                    <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Explore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section scripts {
+    <script>
+        $(function () {
+            $('#accordion').accordion();
+        });
+    </script>
+}
