@@ -12,40 +12,42 @@
         @Html.ActionLink("Create New", "Create")
     </p>
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cours.CourseName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table" id="DataTable">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cours.CourseName)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.CourseAssignments })
-
-                @if (User.IsInRole("Admin"))
-                {
-                    @:|
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseAssignments })
-                    @:|
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseAssignments })
-                }
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cours.CourseName)
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cours.CourseName)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.CourseAssignments })
 
+                    @if (User.IsInRole("Admin"))
+                {
+                        @:|
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CourseAssignments })
+                        @:|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CourseAssignments })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 
@@ -64,4 +66,12 @@
             </div>
         </div>
     </div>
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#DataTable').DataTable();
+        });
+    </script>
 }

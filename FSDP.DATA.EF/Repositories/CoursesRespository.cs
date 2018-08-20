@@ -10,5 +10,7 @@ namespace FSDP.DATA.EF.Repositories
     public class CoursesRespository : GenericRepository<Cours>
     {
         public CoursesRespository(DbContext db) : base(db) { }
+
+
     }
 }

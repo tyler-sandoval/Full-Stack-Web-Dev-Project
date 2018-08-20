@@ -28,12 +28,13 @@ namespace FSDP.UI.MVC.Controllers
 
         public FileResult DisplayPDF(int? id)
         {
-            var userLesson = uow.LessonsRepository.Find(id).PdfFilename;
-           ;
-            string filepath = Server.MapPath("/Content/img/pdfs");
+            Lesson userLesson = uow.LessonsRepository.Find(id);
 
-            var fullFilePath = filepath + userLesson;
-            byte[] pdfbyte = FileUtilities.GetBytesFromFile(filepath);
+            string fileName = userLesson.PdfFilename;
+            string filepath = Server.MapPath("/Content/img/pdfs/");
+
+            var fullFilePath = filepath + fileName;
+            byte[] pdfbyte = FileUtilities.GetBytesFromFile(fullFilePath);
             return File(pdfbyte, "application/pdf");
             
             //id = uow.LessonsRepository.Get("PdfFileName");

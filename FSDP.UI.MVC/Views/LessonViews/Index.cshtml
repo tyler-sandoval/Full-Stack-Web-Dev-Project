@@ -12,44 +12,47 @@
         @Html.ActionLink("Create New", "Create")
     </p>
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateViewed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lesson.LessonTitle)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table" id="DataTable">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateViewed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lesson.LessonTitle)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.LessonViewID }) 
-                @if (User.IsInRole("Admin")) {
-                    @:|
-                    @Html.ActionLink("Edit", "Edit", new { id = item.LessonViewID }) 
-                    @:|
-                    @Html.ActionLink("Delete", "Delete", new { id = item.LessonViewID })
-                }
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.UserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateViewed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lesson.LessonTitle)
+            </th>
+            <th></th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateViewed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lesson.LessonTitle)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.LessonViewID })
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @:|
+                        @Html.ActionLink("Edit", "Edit", new { id = item.LessonViewID })
+                        @:|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.LessonViewID })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 @section pageSpecificSlider{
@@ -67,4 +70,12 @@
             </div>
         </div>
     </div>
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#DataTable').DataTable();
+        });
+    </script>
 }

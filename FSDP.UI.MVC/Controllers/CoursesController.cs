@@ -21,6 +21,15 @@ namespace FSDP.UI.MVC.Controllers
         // GET: Courses
         public ActionResult Index()
         {
+            if (User.IsInRole("Employee"))
+            {
+                
+                //string userID = User.Identity.Name.ToString();
+
+                IEnumerable<Cours> empcrs = uow.CoursesRepository.Get().Where(x => x.IsActive == true); //&& x.CourseID.Equals(uow.CourseAssignmentsRepository.Get().Where(y => y.UserID == userID)));
+
+                return View(empcrs);
+            }
             var courses = uow.CoursesRepository.Get();
             return View(courses);
         }

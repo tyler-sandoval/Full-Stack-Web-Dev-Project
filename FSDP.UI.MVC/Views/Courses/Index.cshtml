@@ -27,7 +27,7 @@
     </tr>
 
     @foreach (var item in Model)
-            {
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CourseName)
@@ -39,18 +39,18 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.CourseID }) 
+                @Html.ActionLink("Details", "Details", new { id = item.CourseID })
 
                 @if (User.IsInRole("Admin"))
                 {
                     @: |
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) 
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseID })
                     @: |
                     @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
                 }
             </td>
         </tr>
-                }
+    }
 
 </table>
 
