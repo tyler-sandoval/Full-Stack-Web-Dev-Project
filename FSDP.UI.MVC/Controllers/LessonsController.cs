@@ -11,6 +11,8 @@ using FSDP.DATA.EF.Repositories;
 using System.IO;
 using System.Drawing;
 using FSDP.UI.MVC.Utilties;
+using Owin;
+using FSDP.UI.MVC.Models;
 
 namespace FSDP.UI.MVC.Controllers
 {
@@ -58,6 +60,10 @@ namespace FSDP.UI.MVC.Controllers
                     uow.Save();
 
                     //TODO: setup manager email confirmation
+                    //send manager auto-gen email
+                    //get list of Roles and users in manager role
+                    //var managerRole = HttpContext.;
+                    //string managerEmail = managerRole.
                 }
             }
 
@@ -204,26 +210,27 @@ namespace FSDP.UI.MVC.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoUrl,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase PdfFilename)
+        public ActionResult Edit([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoUrl,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase PdfFileName)
         {
-            string pdfName = "";
             if (ModelState.IsValid)
             {
                 string oldFileName = uow.LessonsRepository.UntrackedFind(lesson.LessonID).PdfFilename;
-                if (PdfFilename != null)
+                if (PdfFileName != null)
                 {
                     var savePath = Server.MapPath("~/Content/img/pdfs/");
                     FileUtilities.Delete(savePath, oldFileName);
 
-                    pdfName = PdfFilename.FileName;
-                    string pdfExt = ".png";
+                    var newPdfName = PdfFileName.FileName;
+                    string pdfExt = ".pdf";
                     string[] allowedExtensions = { ".pdf", ".docx", ".xslx" };
 
                     if (allowedExtensions.Contains(pdfExt))
                     {
-                        pdfName = Path.GetFileName(PdfFilename.FileName);
+                        newPdfName = Path.GetFileName(PdfFileName.FileName);
                         string newSavePath = Server.MapPath("~/Content/img/pdfs/");
-                        FileUtilities.UploadFile(newSavePath, pdfName, PdfFilename);
+                        FileUtilities.UploadFile(newSavePath, newPdfName, PdfFileName);
+
+                        lesson.PdfFilename = newPdfName;
 
                     }
                     else
@@ -240,6 +247,12 @@ namespace FSDP.UI.MVC.Controllers
             return View(lesson);
 
         }
+
+        public Lesson UntrackedFindPdf(int id)
+        {
+            return uow.LessonsRepository.UntrackedFind(id);
+        }
+
         // GET: Lessons/Delete/5
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)

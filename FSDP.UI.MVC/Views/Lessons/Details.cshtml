@@ -1,4 +1,5 @@
-﻿@model FSDP.DATA.EF.Lesson
+﻿
+@model FSDP.DATA.EF.Lesson
 
 
 @{
@@ -46,7 +47,11 @@
             <dd>
                 @*<img src="@Url.Content("~/Content/img/pdfs/" + Model.PdfFilename)" alt="@Model.LessonTitle" ></img>*@
                 <div class="row">
-                    <a target="_blank" href="@Url.Action("DisplayPDF", "StarDocs", Model.LessonID)" >Click to View PDF</a>
+                    <a target="_blank" href="@Url.Action("DisplayPDF", "StarDocs", Model.LessonID)" >Click to View PDF |</a>
+ 
+                    @Html.DisplayFor(model => model.PdfFilename)
+
+
                 </div>
             </dd>
 

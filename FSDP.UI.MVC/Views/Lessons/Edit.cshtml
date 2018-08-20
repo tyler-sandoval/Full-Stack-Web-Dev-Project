@@ -6,7 +6,7 @@
 <div id="bodyNavSeperatorDiv">
     <h2>@ViewBag.Title</h2>
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Edit", "Lessons", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
