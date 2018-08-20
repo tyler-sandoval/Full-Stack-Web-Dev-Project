@@ -7,7 +7,7 @@
 
 <div id="bodyNavSeperatorDiv">
     <h2>@ViewBag.Title</h2>
-
+    <h3>@ViewBag.Message</h3>
     <div>
         <h4>@Model.LessonTitle</h4>
         <hr />
@@ -70,7 +70,12 @@
     </div>
     <hr />
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.LessonID }) |
-        @Html.ActionLink("Back to List", "Index")
+        @if (User.IsInRole("Admin"))
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.LessonID }) 
+            @: |
+
+        }
+        @Html.ActionLink("Back to Lessons", "CourseLessons", "Lessons", new { id = Model.CourseID}, null)
     </p>
 </div>

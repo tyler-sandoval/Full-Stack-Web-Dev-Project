@@ -29,6 +29,65 @@ namespace FSDP.UI.MVC.Controllers
             return View(lesson);
         }
 
+        // GET: actionlink from Courses/Details to view only lessons with course ID
+        public ActionResult CourseLessons(int? id)
+        {
+            var lesson = uow.LessonsRepository.Find(id);//.Where(lsn => lsn.CourseID == id));
+
+            //auto-generate CourseCompletion once all lessons have been viewed
+            //create CourseCompletion obj
+            CourseCompletion cc = new CourseCompletion();
+
+            //get count of active lessons in course
+            int totalLsnCnt = uow.LessonsRepository.Get().Where(x => x.CourseID == lesson.CourseID).Count();
+
+            //get count of user's lesson views of course lessons
+            string currentUser = User.Identity.Name;
+            int userLsnVwsOfCourse = uow.LessonViewsRepository.Get().Where(x => x.UserID == currentUser && x.DateViewed.Year == DateTime.Now.Year && x.Lesson.CourseID == lesson.CourseID).Count();
+
+            //check for any existing CourseCompletions and set current course and year
+            var ccExists = uow.CourseCompletionsRepository.Get().Where(x => x.CourseID == lesson.CourseID && x.UserID == currentUser && x.DateCompleted.Year == DateTime.Now.Year);
+            if (ccExists.Count() == 0)
+            {
+                if (totalLsnCnt == userLsnVwsOfCourse)
+                {
+                    cc.DateCompleted = DateTime.Now;
+                    cc.UserID = currentUser;
+                    cc.CourseID = lesson.CourseID;
+                    uow.CourseCompletionsRepository.Add(cc);
+                    uow.Save();
+
+                    //TODO: setup manager email confirmation
+                }
+            }
+
+            if (User.IsInRole("Employee"))
+            {
+                var lessonEmps = uow.LessonsRepository.Get().Where(lsn => lsn.CourseID == id && lsn.IsActive == true);
+
+                return View(lessonEmps);
+            }
+            else
+            {
+                var lessons = uow.LessonsRepository.Get().Where(lsn => lsn.CourseID == id);
+                return View(lessons);
+            }
+            /*
+            //auto-generate CourseCompletion once all lessons have been viewed
+            //create CourseCompletion obj
+            CourseCompletion cc = new CourseCompletion();
+
+            //get count of active lessons in course
+            int totalLsnCnt = uow.LessonsRepository.Get().Where(x => x.CourseID == lesson.CourseID).Count();
+
+            //get count of user's lesson views of course lessons
+            string currentUser = User.Identity.Name;
+            int userLsnVwsOfCourse = uow.LessonViewsRepository.Get().Where(x => x.UserID == currentUser && x.DateViewed.Year == DateTime.Now.Year && x.Lesson.CourseID == lesson.CourseID).Count();
+
+            */
+
+        }
+
         // GET: Lessons/Details/5
         public ActionResult Details(int? id)
         {
@@ -40,6 +99,34 @@ namespace FSDP.UI.MVC.Controllers
             if (lesson == null)
             {
                 return HttpNotFound();
+            }
+            if (lesson != null)
+            {
+                ViewBag.Message = "";
+
+                //create LessonView obj
+                LessonView lv = new LessonView();
+
+                //get current user
+                string currentUser = User.Identity.Name;
+
+                //check for any existing record of current year view
+                var exists = uow.LessonViewsRepository.Get().Where(x => x.LessonID == lesson.LessonID && x.UserID == currentUser && x.DateViewed.Year == DateTime.Now.Year);
+
+                //if no existance, create entry
+                if (exists.Count() == 0)
+                {
+                    lv.DateViewed = DateTime.Now;
+                    lv.UserID = currentUser;
+                    lv.LessonID = lesson.LessonID;
+                    uow.LessonViewsRepository.Add(lv);
+                    uow.Save();
+                }
+                else if (exists.Count() > 0)
+                {
+                    ViewBag.Message += "You've already viewed this lesson";
+                }
+
             }
             return View(lesson);
         }

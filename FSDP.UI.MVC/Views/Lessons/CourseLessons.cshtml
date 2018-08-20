@@ -1,20 +1,13 @@
 ﻿@model IEnumerable<FSDP.DATA.EF.Lesson>
 
 @{
-    ViewBag.Title = "Lessons Available";
+    ViewBag.Title = "Lessons to Complete" ;
 }
 
 <h2>@ViewBag.Title</h2>
-
- 
-<p>
-    @if (User.IsInRole("Admin"))
-    {
-        @Html.ActionLink("Create New", "Create")
-        @: |
-    }
+<span class="btn btn-warning">
     @Html.ActionLink("Back to Courses", "Index", "Courses")
-</p>
+</span>
 
 <table class="table">
     <tr>
@@ -33,14 +26,13 @@
         <th>
             @Html.DisplayNameFor(model => model.Cours.CourseName)
         </th>
-        <th>
-            @if (User.IsInRole("Admin"))
-            {
+        @if (User.IsInRole("Admin"))
+        {
+            <th>
                 @Html.DisplayNameFor(model => model.IsActive)
-
-            }
-        </th>
-
+            </th>
+        }
+        
         <th></th>
     </tr>
 
@@ -61,23 +53,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.Cours.CourseName)
         </td>
-        <td>
-            @if (User.IsInRole("Admin"))
-            {
+        @if (User.IsInRole("Admin"))
+        {
+            <td>
                 @Html.DisplayFor(modelItem => item.IsActive)
-
-            }
-        </td>
-
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.LessonID }) 
-
-            @if(User.IsInRole("Admin")) { 
-                @:|
-                @Html.ActionLink("Edit", "Edit", new { id=item.LessonID }) 
-                @:|
-                @Html.ActionLink("Delete", "Delete", new { id=item.LessonID })
-            }
+            </td>
+        }
+        <td class="btn btn-warning">
+            @Html.ActionLink("View Lesson", "Details", new { id=item.LessonID }) 
         </td>
     </tr>
 }
@@ -91,10 +74,9 @@
             <div class="container">
                 <div class="carousel-centered">
                     <div class="margin-b-40">
-                        <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Lessons</h1>
-                        <p>TODO: Lessons In Progress<br /> TODO: lessons remaining</p>
+                        <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Course Specific Lessons</h1>
+                        <p>TODO: total courses completed <br /> TODO: total courses remaining</p>
                     </div>
-                    <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Explore</a>
                 </div>
             </div>
         </div>

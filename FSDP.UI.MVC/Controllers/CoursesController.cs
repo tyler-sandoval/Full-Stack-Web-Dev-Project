@@ -21,7 +21,7 @@ namespace FSDP.UI.MVC.Controllers
         // GET: Courses
         public ActionResult Index()
         {
-            if (User.IsInRole("Employee"))
+            if (User.IsInRole("Employee") || User.IsInRole("Manager"))
             {
                 
                 //string userID = User.Identity.Name.ToString();
@@ -31,6 +31,7 @@ namespace FSDP.UI.MVC.Controllers
                 return View(empcrs);
             }
             var courses = uow.CoursesRepository.Get();
+
             return View(courses);
         }
 
