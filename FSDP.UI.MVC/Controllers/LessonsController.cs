@@ -11,8 +11,10 @@ using FSDP.DATA.EF.Repositories;
 using System.IO;
 using System.Drawing;
 using FSDP.UI.MVC.Utilties;
-using Owin;
+using Microsoft.AspNet.Identity.Owin;
 using FSDP.UI.MVC.Models;
+using Microsoft.AspNet.Identity;
+using System.Net.Mail;
 
 namespace FSDP.UI.MVC.Controllers
 {
@@ -35,6 +37,7 @@ namespace FSDP.UI.MVC.Controllers
         public ActionResult CourseLessons(int? id)
         {
             var lesson = uow.LessonsRepository.Find(id);//.Where(lsn => lsn.CourseID == id));
+
 
             //auto-generate CourseCompletion once all lessons have been viewed
             //create CourseCompletion obj
@@ -62,8 +65,28 @@ namespace FSDP.UI.MVC.Controllers
                     //TODO: setup manager email confirmation
                     //send manager auto-gen email
                     //get list of Roles and users in manager role
-                    //var managerRole = HttpContext.;
-                    //string managerEmail = managerRole.
+                    var managerRole = HttpContext.GetOwinContext().Get<ApplicationRoleManager>().FindByName("Manager");
+                    string managerEmail = managerRole.Users.Select(m => uow.AspNetUsersRepository.Get().Where(mId => mId.Id == m.UserId)).FirstOrDefault().Select(e => e.Email).SingleOrDefault();
+                    ViewBag.managerEmail = managerEmail;
+
+                    //get current user's information
+                    AspNetUser curUser = uow.AspNetUsersRepository.Find(currentUser);
+
+                    //create email body of msg
+                    string body = string.Format(
+                        "{0}, {1}, has comepleted the {2} course on {3}.",
+                        curUser.UserName,
+                        curUser.Email,
+                        lesson.Cours.CourseName,
+                        DateTime.Now
+                        );
+
+                    //create new mailMessage and send via SmtpClient
+                    MailMessage complMsg = new MailMessage("no-reply@tylersandoval.com", managerEmail, "FSDP-LMS Course Completion Notification", body);
+                    SmtpClient client = new SmtpClient("mail.tylersandoval.com");
+                    client.Credentials = new NetworkCredential("no-reply@tylersandoval.com", "Vivian0221!");
+                    client.Send(complMsg);
+
                 }
             }
 
@@ -102,12 +125,14 @@ namespace FSDP.UI.MVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Lesson lesson = uow.LessonsRepository.Find(id);
+
             if (lesson == null)
             {
                 return HttpNotFound();
             }
             if (lesson != null)
             {
+
                 ViewBag.Message = "";
 
                 //create LessonView obj
@@ -134,8 +159,33 @@ namespace FSDP.UI.MVC.Controllers
                 }
 
             }
+            lesson.VideoUrl = ParsedYoutubeUpload(lesson.VideoUrl);
             return View(lesson);
         }
+
+
+        //Youtube Video Controller ActionResult to parse Admin's YoutubeUrl upload
+        public string ParsedYoutubeUpload(string CompleteYouTubeURL)
+        {
+            var v = CompleteYouTubeURL.IndexOf("v=");
+            var amp = CompleteYouTubeURL.IndexOf("&", v);
+            string vid;
+
+            //2 options for getting video id
+            //first, if video is last value of url
+            if (amp == -1)
+            {
+                vid = CompleteYouTubeURL.Substring(v + 2);
+            }
+            else
+            {
+                vid = CompleteYouTubeURL.Substring(v + 2, amp - (v + 2));
+            }
+
+             return ViewBag.VideoID = vid;
+        }
+
+
 
         // GET: Lessons/Create
         [Authorize(Roles = "Admin")]

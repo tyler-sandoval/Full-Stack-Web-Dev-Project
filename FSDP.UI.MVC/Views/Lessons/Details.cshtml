@@ -34,10 +34,12 @@
             </dt>
 
             <dd>
-                @*@Html.DisplayFor(model => model.VideoUrl)*@
+                <div id="player"></div>
+
+                @*@Html.DisplayFor(model => model.VideoUrl)
                 <iframe width="560" height="315" src="@Model.VideoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-                    @*<img src=$("http://i3.ytimg.com/vi/{0}/mqdefault.jpg", @Model.VideoUrl ) />*@
-                </iframe>
+                   <img src=$("http://i3.ytimg.com/vi/{0}/mqdefault.jpg", @Model.VideoUrl ) />*
+                </iframe>*@
             </dd>
 
             <dt>
@@ -47,7 +49,7 @@
             <dd>
                 @*<img src="@Url.Content("~/Content/img/pdfs/" + Model.PdfFilename)" alt="@Model.LessonTitle" ></img>*@
                 <div class="row">
-                    <a target="_blank" href="@Url.Action("DisplayPDF", "StarDocs", Model.LessonID)" >Click to View PDF |</a>
+                    <a target="_blank" href="@Url.Action("DisplayPDF", "StarDocs", Model.PdfFilename)" >Click to View PDF |</a>
  
                     @Html.DisplayFor(model => model.PdfFilename)
 
@@ -84,3 +86,47 @@
         @Html.ActionLink("Back to Lessons", "CourseLessons", "Lessons", new { id = Model.CourseID}, null)
     </p>
 </div>
+
+@section scripts{
+    <script>
+        //create youtube player
+        var player;
+        var h = '@ViewBag.height';
+        var w = '@ViewBag.width';
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('player', {
+                height: 360,
+                width: 640,
+                modestbranding: 1,
+                videoId: '@ViewBag.VideoID',
+                playerVars: {
+                    rel: 0,
+                    autoplay: 0,
+                    disablekb: 0,
+                    showsearch: 0,
+                    controls: 1,
+                    fs: 1,
+                    hd: 1,
+                    html5: 1,
+                    iv_load_policy: 3
+                },
+                events: {
+                    onReady: onPlayerReady,
+                    onStateChange: onPlayerStateChange
+                }
+            });
+        }
+        //autoplayVideo
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        //when video reaches end
+        function onPlayerStateChange(event) {
+            if (event.data === 0) {
+                //do something on end;
+                alert('done');
+            }
+        }
+</script>
+}

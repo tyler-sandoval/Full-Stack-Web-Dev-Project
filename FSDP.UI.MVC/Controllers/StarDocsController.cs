@@ -26,10 +26,14 @@ namespace FSDP.UI.MVC.Controllers
         //    //return new RedirectResult(viewResponse.Url);
         //}
 
-        public FileResult DisplayPDF(int? id)
+        public FileResult DisplayPDF(string PDFName)
         {
-            var pdfPath = Server.MapPath("~/Content/img/pdf") + uow.LessonsRepository.Find(id).PdfFilename.ToString();
-            return File("pdfPath", "application/pdf");
+            var pdfPath = Server.MapPath("~/Content/img/pdfs/" + PDFName);
+            var pdfDisplay = PDFName;
+            var fullPdfPath = pdfPath + pdfDisplay;
+
+            //return File("fullPdfPath", "application/pdf");
+            return File(fullPdfPath, "application/pdf");
 
             //Lesson userLesson = uow.LessonsRepository.Find(id);
 
