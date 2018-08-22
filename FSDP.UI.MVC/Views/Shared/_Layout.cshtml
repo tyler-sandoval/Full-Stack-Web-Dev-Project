@@ -170,7 +170,31 @@
     <script src="~/Content/js/components/swiper.min.js" type="text/javascript"></script>
     <script src="~/Content/js/components/masonry.min.js" type="text/javascript"></script>
     
+    <script>
+  $( function() {
+    var progressbar = $( "#progressbar" ),
+      progressLabel = $( ".progress-label" );
 
+    progressbar.progressbar({
+      value: false,
+      change: function() {
+        progressLabel.text( progressbar.progressbar( "value" ) + "%" );
+      },
+      complete: function() {
+        progressLabel.text( "Complete!" );
+      }
+    });
+
+    function progress() {
+      var val = progressbar.progressbar( "value" ) || 0;
+
+      progressbar.progressbar( "value",  @ViewBag.Progress );
+
+    }
+
+    setTimeout( progress, 2000 );
+  } );
+    </script>
     @RenderSection("scripts", false)
 </body>
 </html>

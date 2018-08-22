@@ -20,6 +20,13 @@ namespace FSDP.UI.MVC.Controllers
         public ActionResult Index()
         {
             var courseCompletions = uow.CourseCompletionsRepository.Get(includeProperties: "Cours");
+
+            if (User.IsInRole("Employee"))
+            {
+                var employeeOnly = uow.CourseCompletionsRepository.Get(includeProperties: "Cours").Where(x => x.UserID == User.Identity.Name);
+
+                return View(employeeOnly.ToList());
+            }
             return View(courseCompletions.ToList());
         }
 

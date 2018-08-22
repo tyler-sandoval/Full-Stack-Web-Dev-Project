@@ -33,22 +33,49 @@ namespace FSDP.UI.MVC.Controllers
             return View(lesson);
         }
 
+        public double LessonProgression(Lesson lesson)
+        {
+            //get current user
+            string currentUser = User.Identity.Name;
+            //get count of active lessons in course
+            var lessons = uow.LessonsRepository.Get().Where(x => x.IsActive == true && x.CourseID == lesson.CourseID);
+            double lessonCount = lessons.Count();
+            //get count of lessons in course with a lessonview of user
+            var lessonsCompleted = uow.LessonViewsRepository.Get().Where(x => x.UserID == currentUser);
+
+            double countViewedLessons = 0;
+
+            foreach (var l in lessons)
+            {
+                foreach (var lv in lessonsCompleted)
+                {
+                    if (l.LessonID == lv.LessonID)
+                    {
+                        countViewedLessons++;
+                    }
+                }
+            }
+
+            double progress = (countViewedLessons / lessonCount) * 100;
+            return ViewBag.LessonProgress = progress;
+        }
+
         // GET: actionlink from Courses/Details to view only lessons with course ID
         public ActionResult CourseLessons(int? id)
         {
             var lesson = uow.LessonsRepository.Find(id);//.Where(lsn => lsn.CourseID == id));
 
-
+            ViewBag.Progress = LessonProgression(lesson);
             //auto-generate CourseCompletion once all lessons have been viewed
             //create CourseCompletion obj
             CourseCompletion cc = new CourseCompletion();
 
-            //get count of active lessons in course
-            int totalLsnCnt = uow.LessonsRepository.Get().Where(x => x.CourseID == lesson.CourseID).Count();
+            //get count of active lessons in course for user
+            var totalLsnCnt = uow.LessonsRepository.Get().Where(x => x.CourseID == lesson.CourseID && x.IsActive == true).Count();
 
             //get count of user's lesson views of course lessons
             string currentUser = User.Identity.Name;
-            int userLsnVwsOfCourse = uow.LessonViewsRepository.Get().Where(x => x.UserID == currentUser && x.DateViewed.Year == DateTime.Now.Year && x.Lesson.CourseID == lesson.CourseID).Count();
+            var userLsnVwsOfCourse = uow.LessonViewsRepository.Get().Where(x => x.UserID == currentUser && x.DateViewed.Year == DateTime.Now.Year && x.Lesson.CourseID == lesson.CourseID).Count();
 
             //check for any existing CourseCompletions and set current course and year
             var ccExists = uow.CourseCompletionsRepository.Get().Where(x => x.CourseID == lesson.CourseID && x.UserID == currentUser && x.DateCompleted.Year == DateTime.Now.Year);
@@ -62,7 +89,6 @@ namespace FSDP.UI.MVC.Controllers
                     uow.CourseCompletionsRepository.Add(cc);
                     uow.Save();
 
-                    //TODO: setup manager email confirmation
                     //send manager auto-gen email
                     //get list of Roles and users in manager role
                     var managerRole = HttpContext.GetOwinContext().Get<ApplicationRoleManager>().FindByName("Manager");
@@ -72,6 +98,8 @@ namespace FSDP.UI.MVC.Controllers
                     //get current user's information
                     AspNetUser curUser = uow.AspNetUsersRepository.Find(currentUser);
 
+                    try
+                    {
                     //create email body of msg
                     string body = string.Format(
                         "{0}, {1}, has comepleted the {2} course on {3}.",
@@ -81,12 +109,17 @@ namespace FSDP.UI.MVC.Controllers
                         DateTime.Now
                         );
 
+                    
                     //create new mailMessage and send via SmtpClient
                     MailMessage complMsg = new MailMessage("no-reply@tylersandoval.com", managerEmail, "FSDP-LMS Course Completion Notification", body);
                     SmtpClient client = new SmtpClient("mail.tylersandoval.com");
                     client.Credentials = new NetworkCredential("no-reply@tylersandoval.com", "Vivian0221!");
                     client.Send(complMsg);
-
+                    }
+                    catch (Exception)
+                    {
+                        return ViewBag.Error = "There was an issue with sending manager email notification. Please alert your manager and submit a ticket via contact page!";
+                    }
                 }
             }
 
@@ -101,19 +134,6 @@ namespace FSDP.UI.MVC.Controllers
                 var lessons = uow.LessonsRepository.Get().Where(lsn => lsn.CourseID == id);
                 return View(lessons);
             }
-            /*
-            //auto-generate CourseCompletion once all lessons have been viewed
-            //create CourseCompletion obj
-            CourseCompletion cc = new CourseCompletion();
-
-            //get count of active lessons in course
-            int totalLsnCnt = uow.LessonsRepository.Get().Where(x => x.CourseID == lesson.CourseID).Count();
-
-            //get count of user's lesson views of course lessons
-            string currentUser = User.Identity.Name;
-            int userLsnVwsOfCourse = uow.LessonViewsRepository.Get().Where(x => x.UserID == currentUser && x.DateViewed.Year == DateTime.Now.Year && x.Lesson.CourseID == lesson.CourseID).Count();
-
-            */
 
         }
 
@@ -167,22 +187,27 @@ namespace FSDP.UI.MVC.Controllers
         //Youtube Video Controller ActionResult to parse Admin's YoutubeUrl upload
         public string ParsedYoutubeUpload(string CompleteYouTubeURL)
         {
-            var v = CompleteYouTubeURL.IndexOf("v=");
-            var amp = CompleteYouTubeURL.IndexOf("&", v);
             string vid;
-
-            //2 options for getting video id
-            //first, if video is last value of url
-            if (amp == -1)
+            if (CompleteYouTubeURL != null)
             {
-                vid = CompleteYouTubeURL.Substring(v + 2);
-            }
-            else
-            {
-                vid = CompleteYouTubeURL.Substring(v + 2, amp - (v + 2));
-            }
+                var v = CompleteYouTubeURL.IndexOf("v=");
+                var amp = CompleteYouTubeURL.IndexOf("&", v);
+                
 
-             return ViewBag.VideoID = vid;
+                //2 options for getting video id
+                //first, if video is last value of url
+                if (amp == -1)
+                {
+                    vid = CompleteYouTubeURL.Substring(v + 2);
+                }
+                else
+                {
+                    vid = CompleteYouTubeURL.Substring(v + 2, amp - (v + 2));
+                }
+
+                return ViewBag.VideoID = vid;
+            }
+            return ViewBag.VideoID = " - Video Not Available - " ;
         }
 
 
@@ -209,21 +234,20 @@ namespace FSDP.UI.MVC.Controllers
 
                 if (PdfFilename != null)
                 {
-                    string pdfExt = Path.GetExtension(PdfFilename.FileName).ToLower();
-                    string allowedExtensions = ".pdf";
+                    pdfName = PdfFilename.FileName;
 
-                    if (allowedExtensions.Contains(pdfExt))
+                    string pdfExt = pdfName.Substring(pdfName.LastIndexOf('.'));
+
+                    string allowedExtension = ".pdf";
+
+                    if (pdfExt == allowedExtension)
                     {
                         //save with original file
-                        pdfName = Path.GetFileName(PdfFilename.FileName).ToString();
-
-                        //set path on server where pdfs stored
-                        string savePath = Server.MapPath("~/Content/img/pdfs/");
-
-                        //upload the file
-                        FileUtilities.UploadFile(savePath, pdfName, PdfFilename);
-
-
+                        PdfFilename.SaveAs(Server.MapPath("~/Content/img/pdfs/" + pdfName));
+                    }
+                    else
+                    {
+                        pdfName = "noPDF.png";
                     }
                 }
 

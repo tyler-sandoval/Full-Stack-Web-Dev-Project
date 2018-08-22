@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<FSDP.DATA.EF.Cours>
 
 @{
+
     ViewBag.Title = "Courses Available";
 }
 
@@ -13,7 +14,7 @@
         @Html.ActionLink("Create New", "Create")
     </p>
 }
-<div id="progressbar"><div class="progress-label">Loading...</div></div>
+<div id="progressbar"><div class="progress-label">Loading... </div></div>
 <table class="table">
     <tr>
         <th>
@@ -86,7 +87,7 @@
                 <div class="carousel-centered">
                     <div class="margin-b-40">
                         <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Courses</h1>
-                        <p>TODO: total courses completed <br /> TODO: total courses remaining</p>
+                        <p>@ViewBag.Progress: % total courses completed <br /> TODO: total courses remaining</p>
                     </div>
                     <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Explore</a>
                 </div>
@@ -97,7 +98,7 @@
 
 @section scripts{
    <script>
-        $(function () {
+       $(function () {
             var progressbar = $("#progressbar"),
               progressLabel = $(".progress-label");
 
@@ -114,7 +115,7 @@
             function progress() {
                 var val = progressbar.progressbar("value") || 0;
 
-                progressbar.progressbar("value", val + 2);
+                progressbar.progressbar("value", val + @ViewBag.Progress);
 
                 //if (val < 99) {
                 //    setTimeout(progress, 80);

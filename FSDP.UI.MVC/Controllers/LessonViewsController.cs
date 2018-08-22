@@ -22,6 +22,12 @@ namespace FSDP.UI.MVC.Controllers
         {
             //var lessonViews = db.LessonViews.Include(l => l.Lesson);
             var lessonViews = uow.LessonViewsRepository.Get(includeProperties: "Lesson");
+
+            if (User.IsInRole("Employee"))
+            {
+                var empLsnViews = uow.LessonViewsRepository.Get(includeProperties: "Lesson").Where(x => x.UserID == User.Identity.Name);
+                return View(empLsnViews.ToList());
+            }
             return View(lessonViews.ToList());
         }
 

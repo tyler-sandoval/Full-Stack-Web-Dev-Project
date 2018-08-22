@@ -17,7 +17,9 @@
 #customFooter {
     position:relative;
     bottom: 0vh;
-    width: 100%
+    width: 100%;
+    background-color: black;
+    background-image:url(../img/1920x1080/02.jpg);
 }
 
 .google-maps {
@@ -132,5 +134,27 @@
     left: 50%;
     top: 4px;
     font-weight: bold;
-    text-shadow: 1px 1px 0 #fff;
+    text-shadow: 1px 1px 0 black;
+}
+
+
+@media only screen and (max-width: 768px){
+    [id*="customBodyLayout"]{
+        width: 100%;
+    }
+
+    [class*="carousel-inner"]{
+        margin-top: 13.5em;
+    }
+    [class*="carousel-centered"]{
+        margin-top: 5em;
+    }
+}
+
+/*Presentation Styling*/
+
+
+#registerLink, #loginLink, #Manage, #logoutForm, #prezStyle {
+    color: white;
+
 }

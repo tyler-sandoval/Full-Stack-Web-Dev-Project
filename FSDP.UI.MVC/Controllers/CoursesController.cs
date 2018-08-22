@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FSDP.DATA.EF;
 using FSDP.DATA.EF.Repositories;
+using Microsoft.AspNet.Identity;
 
 
 namespace FSDP.UI.MVC.Controllers
@@ -20,17 +21,20 @@ namespace FSDP.UI.MVC.Controllers
 
         // GET: Courses
         public ActionResult Index()
-        {
+        {                
+
             if (User.IsInRole("Employee") || User.IsInRole("Manager"))
-            {
-                
+            {            
+                //for progress bar js  
+
                 //string userID = User.Identity.Name.ToString();
 
-                IEnumerable<Cours> empcrs = uow.CoursesRepository.Get().Where(x => x.IsActive == true); //&& x.CourseID.Equals(uow.CourseAssignmentsRepository.Get().Where(y => y.UserID == userID)));
-
+                var empcrs = uow.CoursesRepository.Get().Where(x => x.IsActive == true); //&& x.CourseID.Equals(uow.CourseAssignmentsRepository.Get().Where(y => y.UserID == userID)));
+                ViewBag.Progress = CourseProgression();
                 return View(empcrs);
             }
             var courses = uow.CoursesRepository.Get();
+            ViewBag.Progress = CourseProgression();
 
             return View(courses);
         }
@@ -49,6 +53,34 @@ namespace FSDP.UI.MVC.Controllers
             }
             return View(cours);
         }
+
+        public double CourseProgression()
+        {
+            //get current user
+            string currentUser = User.Identity.Name;
+            //get count of active courses
+            var totalCourses = uow.CoursesRepository.Get().Where(x => x.IsActive == true);
+            double tcCount = totalCourses.Count();
+            //get count of course completions for user
+            var courseCompletions = uow.CourseCompletionsRepository.Get().Where(x => x.UserID == currentUser);
+            double countsCourseCompletions = 0;
+            foreach (var course in totalCourses)
+            {
+                foreach (var completion in courseCompletions)
+                {
+                    if (course.CourseID == completion.CourseID)
+                    {
+                        countsCourseCompletions++;
+                    }
+                }
+            }
+
+            double progress = (countsCourseCompletions / tcCount) * 100;
+            ViewBag.Progress = progress;
+            return ViewBag.Progress;
+        }
+
+        
 
         // GET: Courses/Create
         [Authorize(Roles = "Admin")]

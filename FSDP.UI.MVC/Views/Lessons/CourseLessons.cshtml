@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<FSDP.DATA.EF.Lesson>
 
 @{
+
     ViewBag.Title = "Lessons to Complete" ;
 }
 
@@ -8,7 +9,7 @@
 <span class="btn btn-warning">
     @Html.ActionLink("Back to Courses", "Index", "Courses")
 </span>
-
+<div id="progressbar"><div class="progress-label">Loading...</div></div>
 <table class="table">
     <tr>
         <th>
@@ -75,7 +76,7 @@
                 <div class="carousel-centered">
                     <div class="margin-b-40">
                         <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Course Specific Lessons</h1>
-                        <p>TODO: total courses completed <br /> TODO: total courses remaining</p>
+                        <p>@ViewBag.Progress % Course Progress <br /> Demo version req View Lesson button click to see if you have viewed</p>
                     </div>
                 </div>
             </div>

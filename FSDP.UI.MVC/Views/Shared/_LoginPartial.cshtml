@@ -6,15 +6,15 @@
         @Html.AntiForgeryToken()
 
             <li class=" btn btn-warning">
-                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" , @id="prezStyle"})
             </li>
-            <li class="btn btn-warning"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            <li class="btn btn-warning" id="prezStyle"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
 
     }
 }
 else
 {
-    <ul class="navbar-nav-right btn-sm btn-warning">
+    <ul class="navbar-nav-right btn-sm btn-warning" id="prezStyle">
         <li class="nav-item">
             @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
         </li>
