@@ -8,9 +8,10 @@
 <h2>@ViewBag.Title</h2>
 
 @if (User.IsInRole("Admin")) { 
-    <p>
+    <p class="btn btn-warning" id="prezStyle">
         @Html.ActionLink("Create New", "Create")
     </p>
+    <hr />
 }
 <table class="table" id="DataTable">
     <thead>
@@ -41,14 +42,19 @@
                     @Html.DisplayFor(modelItem => item.Cours.CourseName)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.CourseCompletionID })
+                    <button class="btn btn-warning" id="prezStyle">
+                        @Html.ActionLink("Details", "Details", new { id = item.CourseCompletionID })
+                    </button>
 
                     @if (User.IsInRole("Admin"))
-                {
-                        @:|
-                        @Html.ActionLink("Edit", "Edit", new { id = item.CourseCompletionID })
-                        @:|
-                        @Html.ActionLink("Delete", "Delete", new { id = item.CourseCompletionID })
+                    {
+                        <button class="btn btn-warning" id="prezStyle">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CourseCompletionID })
+                        </button>
+
+                        <button class="btn btn-warning" id="prezStyle">
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CourseCompletionID })
+                        </button>
                     }
                 </td>
             </tr>
@@ -65,9 +71,7 @@
                 <div class="carousel-centered">
                     <div class="margin-b-40">
                         <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Courses Completed</h1>
-                        <p>TODO: total courses completed <br /> TODO: total courses remaining</p>
                     </div>
-                    <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Explore</a>
                 </div>
             </div>
         </div>

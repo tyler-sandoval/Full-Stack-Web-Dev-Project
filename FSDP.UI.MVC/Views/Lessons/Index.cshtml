@@ -6,82 +6,96 @@
 
 <h2>@ViewBag.Title</h2>
 
- 
+
 <p>
     @if (User.IsInRole("Admin"))
     {
-        @Html.ActionLink("Create New", "Create")
+        <button class="btn btn-warning" id="prezStyle">
+            @Html.ActionLink("Create New", "Create")
+        </button>
         @: |
     }
-    @Html.ActionLink("Back to Courses", "Index", "Courses")
+    <button class="btn btn-warning" id="prezStyle">
+        @Html.ActionLink("Back to Courses", "Index", "Courses")
+    </button>
 </p>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LessonTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Introduction)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VideoUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PdfFilename)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cours.CourseName)
-        </th>
-        <th>
-            @if (User.IsInRole("Admin"))
+<table class="table" id="DataTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LessonTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Introduction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PdfFilename)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cours.CourseName)
+            </th>
+            <th>
+                @if (User.IsInRole("Admin"))
             {
-                @Html.DisplayNameFor(model => model.IsActive)
+                    @Html.DisplayNameFor(model => model.IsActive)
 
-            }
-        </th>
+                }
+            </th>
 
-        <th></th>
-    </tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LessonTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Introduction)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VideoUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PdfFilename)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cours.CourseName)
-        </td>
-        <td>
-            @if (User.IsInRole("Admin"))
-            {
-                @Html.DisplayFor(modelItem => item.IsActive)
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Introduction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VideoUrl)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => item.PdfFilename)
+                    <a href="@Url.Content("~/Content/img/pdfs/" + item.PdfFilename)" target="_blank">
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cours.CourseName)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                {
+                        @Html.DisplayFor(modelItem => item.IsActive)
 
-            }
-        </td>
+                    }
+                </td>
 
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.LessonID }) 
-
-            @if(User.IsInRole("Admin")) { 
-                @:|
-                @Html.ActionLink("Edit", "Edit", new { id=item.LessonID }) 
-                @:|
-                @Html.ActionLink("Delete", "Delete", new { id=item.LessonID })
-            }
-        </td>
-    </tr>
-}
-
+                <td>
+                    <button class="btn-sm btn-warning" id="prezStyle">
+                        @Html.ActionLink("Details", "Details", new { id = item.LessonID })
+                    </button>
+                    @if (User.IsInRole("Admin"))
+                {
+                        <button class="btn-sm btn-warning" id="prezStyle">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.LessonID })
+                        </button>
+                        <button class="btn-sm btn-warning" id="prezStyle">
+                            @Html.ActionLink("Delete", "Delete", new { id = item.LessonID })
+                        </button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 @section pageSpecificSlider{
@@ -92,11 +106,18 @@
                 <div class="carousel-centered">
                     <div class="margin-b-40">
                         <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Lessons</h1>
-                        <p>TODO: Lessons In Progress<br /> TODO: lessons remaining</p>
+                        <p>@ViewBag.LessonProgress</p>
                     </div>
-                    <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Explore</a>
                 </div>
             </div>
         </div>
     </div>
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#DataTable').DataTable();
+        });
+    </script>
 }

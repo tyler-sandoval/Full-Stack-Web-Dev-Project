@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<FSDP.DATA.EF.Cours>
 
 @{
-
+    ViewBag.HeaderCalc = ViewBag.Progress;
+    ViewBag.tableHeader = "Course Progression";
     ViewBag.Title = "Courses Available";
 }
 
@@ -10,71 +11,85 @@
 
 @if (User.IsInRole("Admin"))
 {
-    <p>
+    <button class="btn btn-warning" id="prezStyle" >
         @Html.ActionLink("Create New", "Create")
-    </p>
+    </button>
+    <hr />
 }
 <div id="progressbar"><div class="progress-label">Loading... </div></div>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @if (User.IsInRole("Admin"))
-            {
-                @Html.DisplayNameFor(model => model.IsActive)
-
-            }
-        </th>
-        <th>
-            Course Completion
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table" id="DataTable">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
                 @if (User.IsInRole("Admin"))
-                {
-                    @Html.DisplayFor(modelItem => item.IsActive)
-
-                }
-            </td>
-            @if (User.IsInRole("Employee"))
             {
-                <td>
-                    Will Insert Lessons within Course completed
-                </td>
-            }
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
-                @Html.ActionLink("View Lessons","CourseLessons","Lessons", new { id = item.CourseID}, null)
-                
+                    @Html.DisplayNameFor(model => model.IsActive)
 
-                @if (User.IsInRole("Admin"))
-                {
-                    @: |
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseID })
-                    @: |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
                 }
-            </td>
-            <td>
-            </td>
+            </th>
+            <th>
+                @if (User.IsInRole("Employee"))
+            {
+                    @ViewBag.tableHeader
+                }
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                {
+                        @Html.DisplayFor(modelItem => item.IsActive)
+
+                    }
+                </td>
+                @if (User.IsInRole("Employee"))
+                {
+                    <td>
+                        @ViewBag.Progress + "%"
+                    </td>
+                }
+                <td>
+                    <button class="btn btn-warning" id="prezStyle">
+                        @Html.ActionLink("Details", "Details", new { id = item.CourseID })
+                    </button>
+                    <button class="btn btn-warning" id="prezStyle">
+                        @Html.ActionLink("View Lessons", "CourseLessons", "Lessons", new { id = item.CourseID }, null)
+                    </button>
+
+                    @if (User.IsInRole("Admin"))
+                {
+
+                        <button class="btn btn-warning" id="prezStyle">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CourseID })
+                        </button>
+
+                        <button class="btn btn-warning" id="prezStyle">
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
+                        </button>
+                    }
+                </td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
 
 </table>
 
@@ -87,9 +102,8 @@
                 <div class="carousel-centered">
                     <div class="margin-b-40">
                         <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Courses</h1>
-                        <p>@ViewBag.Progress: % total courses completed <br /> TODO: total courses remaining</p>
+                        <p>@ViewBag.HeaderCalc % total courses completed</p>
                     </div>
-                    <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Explore</a>
                 </div>
             </div>
         </div>
@@ -123,6 +137,15 @@
             }
 
             setTimeout(progress, 2000);
+       });
+
+
+
+        $(document).ready(function () {
+            $('#DataTable').DataTable();
         });
+
+
+
 </script> 
 }

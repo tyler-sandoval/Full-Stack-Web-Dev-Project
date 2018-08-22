@@ -3,85 +3,103 @@
 
 
 @{
-    ViewBag.Title = "Details for";
+    ViewBag.Title = "Lesson Materials for";
 }
+<div id="customBodyLayout">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LessonTitle)
+        </dt>
 
-<div id="bodyNavSeperatorDiv">
-    <h2>@ViewBag.Title</h2>
-    <h3>@ViewBag.Message</h3>
-    <div>
-        <h4>@Model.LessonTitle</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.LessonTitle)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LessonTitle)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.LessonTitle)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Introduction)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Introduction)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Introduction)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Introduction)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VideoUrl)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.VideoUrl)
-            </dt>
+        <dd>
+            @Html.HiddenFor(model => model.VideoUrl)
+            <div id="player"></div>
 
-            <dd>
-                @Html.HiddenFor(model => model.VideoUrl)
-                <div id="player"></div>
-
-                @*@Html.DisplayFor(model => model.VideoUrl)
+            @*@Html.DisplayFor(model => model.VideoUrl)
                 <iframe width="560" height="315" src="@Model.VideoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
                    <img src=$("http://i3.ytimg.com/vi/{0}/mqdefault.jpg", @Model.VideoUrl ) />*
                 </iframe>*@
-            </dd>
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.PdfFilename)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.PdfFilename)
+        </dt>
 
-            <dd>
-                @Html.HiddenFor(model => model.PdfFilename)
-                <a href="@Url.Content("~/Content/img/pdfs/" + Model.PdfFilename)" target="_blank">Click to View Document</a>
-            </dd>
+        <dd>
+            @Html.HiddenFor(model => model.PdfFilename)
+            <a class="btn btn-warning" id="prezStyle" href="@Url.Content("~/Content/img/pdfs/" + Model.PdfFilename)" target="_blank">Click to View Document</a>
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.IsActive)
-                
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Cours.CourseName)
-            </dt>
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Cours.CourseName)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cours.CourseName)
+        </dt>
 
-        </dl>
-    </div>
+        <dd>
+            @Html.DisplayFor(model => model.Cours.CourseName)
+        </dd>
+
+    </dl>
+
     <hr />
     <p>
         @if (User.IsInRole("Admin"))
         {
-            @Html.ActionLink("Edit", "Edit", new { id = Model.LessonID }) 
-            @: |
-
+            <button class="btn btn-warning" id="prezStyle">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.LessonID })
+            </button>
+            <button class="btn btn-warning" id="prezStyle">
+                @Html.ActionLink("View All Lessons", "Index", "Lessons")
+            </button>
         }
-        @Html.ActionLink("Back to Lessons", "CourseLessons", "Lessons", new { id = Model.CourseID}, null)
+
+        <button class="btn btn-warning" id="prezStyle">
+            @Html.ActionLink("Back to Course Lessons", "CourseLessons", "Lessons", new { id = Model.CourseID }, null)
+        </button>
     </p>
 </div>
+
+@section pageSpecificSlider{
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="img-responsive" src="~/Content/img/1920x1080/fsdp.png" alt="Slider Image">
+            <div class="container">
+                <div class="carousel-centered">
+                    <div class="margin-b-40">
+                        <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Complete Lesson</h1>
+                        <p>@ViewBag.Title</p>
+                        <p>@ViewBag.Message</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @section scripts{
     <script>

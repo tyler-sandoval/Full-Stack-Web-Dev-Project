@@ -4,7 +4,7 @@
     ViewBag.Title = "Create Course";
 }
 
-<div id="bodyNavSeperatorDiv">
+<div id="customBodyLayout">
 
     @using (Html.BeginForm())
     {
@@ -50,7 +50,24 @@
 
     <hr />
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        <button class="btn btn-warning" id="prezStyle">
+            @Html.ActionLink("Back to List", "Index")
+        </button>
     </div>
 
 </div>
+
+@section pageSpecificSlider {
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="img-responsive" src="~/Content/img/1920x1080/fsdp.png" alt="Slider Image">
+            <div class="container">
+                <div class="carousel-centered">
+                    <div class="margin-b-40">
+                        <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Create a Course</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

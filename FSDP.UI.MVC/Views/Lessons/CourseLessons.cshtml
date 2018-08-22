@@ -6,66 +6,72 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<span class="btn btn-warning">
+<span class="btn btn-warning" id="prezStyle">
     @Html.ActionLink("Back to Courses", "Index", "Courses")
-</span>
+</span>    
+<hr />
+
 <div id="progressbar"><div class="progress-label">Loading...</div></div>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LessonTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Introduction)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VideoUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PdfFilename)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cours.CourseName)
-        </th>
-        @if (User.IsInRole("Admin"))
-        {
+<table class="table" id="DataTable">
+    <thead>
+        <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IsActive)
+                @Html.DisplayNameFor(model => model.LessonTitle)
             </th>
-        }
-        
-        <th></th>
-    </tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Introduction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PdfFilename)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cours.CourseName)
+            </th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+            }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LessonTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Introduction)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VideoUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PdfFilename)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cours.CourseName)
-        </td>
-        @if (User.IsInRole("Admin"))
-        {
+            <th></th>
+        </tr>
+    </thead><tbody>
+    @foreach (var item in Model)
+    {
+
+
+        <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
+                @Html.DisplayFor(modelItem => item.LessonTitle)
             </td>
-        }
-        <td class="btn btn-warning">
-            @Html.ActionLink("View Lesson", "Details", new { id=item.LessonID }) 
-        </td>
-    </tr>
-}
-
+            <td>
+                @Html.DisplayFor(modelItem => item.Introduction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PdfFilename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cours.CourseName)
+            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+            }
+            <td class="btn btn-warning" id="prezStyle">
+                @Html.ActionLink("View Lesson", "Details", new { id = item.LessonID })
+            </td>
+        </tr>
+    }
+</tbody>
 </table>
 
 @section pageSpecificSlider{
@@ -82,4 +88,12 @@
             </div>
         </div>
     </div>
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#DataTable').DataTable();
+        });
+    </script>
 }
