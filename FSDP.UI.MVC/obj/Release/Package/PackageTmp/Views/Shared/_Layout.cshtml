@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<!-- ==============================
+    Project:        Metronic "Asentus" Frontend Freebie - Responsive HTML Template Based On Twitter Bootstrap 3.3.4
+    Version:        1.0
+    Author:         KeenThemes
+    Primary use:    Corporate, Business Themes.
+    Email:          support@keenthemes.com
+    Follow:         http://www.twitter.com/keenthemes
+    Like:           http://www.facebook.com/keenthemes
+    Website:        http://www.keenthemes.com
+    Premium:        Premium Metronic Admin Theme: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+================================== -->
+<html lang="en" class="no-js">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title | FSDP Merchant Services</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
+    <link href="~/Content/vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- PAGE LEVEL PLUGIN STYLES -->
+    <link href="~/Content/css/animate.css" rel="stylesheet">
+    <link href="~/Content/vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/trontastic/jquery-ui.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <!-- THEME STYLES -->
+    <link href="~/Content/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/custom.css" rel="stylesheet" />
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/faviconNew.ico" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+</head>
+
+
+<body>
+    <!--========== HEADER ==========-->
+    <header class="header navbar-fixed-top" id="topNavBarCustom">
+        <!-- Navbar -->
+        <nav class="navbar" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="menu-container">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="toggle-icon"></span>
+                    </button>
+
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a class="logo-wrap" href="@Url.Action("Index", "Home")">
+                            <img class="logo-img logo-img-main" src="~/Content/img/logo.png" alt="FSDP Logo">
+                            <img class="logo-img logo-img-active" src="~/Content/img/logodark.png" alt="FSDP Logo">
+                        </a>
+
+                    </div>
+                    <!-- End Logo -->
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse nav-collapse">
+                    <div class="menu-container">
+                        <ul class="navbar-nav navbar-nav-left">
+
+                            <li class="nav-item"><a class="nav-item-child nav-item-hover active" href="@Url.Action("Index", "Home")">Home</a></li>
+                            <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("About", "Home")">FAQ</a></li>
+                            <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Contact", "Home")">Contact</a></li>
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "Courses")">Courses</a></li>
+                                <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "CourseCompletions")">Completions</a></li>
+                                <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "Lessons")">Lessons</a></li>
+                                <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "LessonViews")">Views</a></li>
+
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "CourseAssignments")">Assignments</a></li>
+                                    <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "RolesAdmin")">Roles Admin</a></li>
+                                    <li class="nav-item"><a class="nav-item-child nav-item-hover" href="@Url.Action("Index", "UsersAdmin")">Users Admin</a></li>
+                                }
+                            }
+
+                        </ul>
+
+                    </div>
+                    @Html.Partial("_LoginPartial")
+
+                </div>
+                <!-- End Navbar Collapse -->
+            </div>
+        </nav>
+        <!-- Navbar -->
+    </header>
+    <!--========== SLIDER ==========-->
+    @RenderSection("pageSpecificSlider", false)
+
+    <!--========== SLIDER ==========-->
+    <!--========== END HEADER ==========-->
+    <!--========== PAGE LAYOUT ==========-->
+
+    <div id="customBodyLayout">
+        @RenderBody()
+    </div>
+
+    <!--========== END PAGE LAYOUT ==========-->
+    <!--========== FOOTER ==========-->
+
+    <footer class="footer" id="customFooter">
+        <!-- Copyright -->
+        <div class="content container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <img class="footer-logo" src="~/Content/img/logo.png" alt="Asentus Logo">
+                </div>
+                <div class="col-xs-6 text-right">
+                    <p class="margin-b-0"><a class="color-base fweight-700" href="http://keenthemes.com/preview/asentus/">Asentus</a> Theme Powered by: <a class="color-base fweight-700" href="http://www.keenthemes.com/">KeenThemes.com</a></p>
+                </div>
+            </div>
+            <!--// end row -->
+        </div>
+        <!-- End Copyright -->
+    </footer>
+
+    <!--========== END FOOTER ==========-->
+    <!-- Back To Top link -->
+
+    <a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>
+
+    <!-- JAVASCRIPTS(Per documentation of template to put users template at bottom to avoid load time & runtime errors) -->
+    <!-- CORE PLUGINS -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="~/Content/vendor/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Content/vendor/jquery-migrate.min.js" type="text/javascript"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!-- PAGE LEVEL PLUGINS -->
+    <script src="~/Content/vendor/jquery.easing.js" type="text/javascript"></script>
+    <script src="~/Content/vendor/jquery.back-to-top.js" type="text/javascript"></script>
+    <script src="~/Content/vendor/jquery.smooth-scroll.js" type="text/javascript"></script>
+    <script src="~/Content/vendor/jquery.parallax.min.js"></script>
+    <script src="~/Content/vendor/jquery.wow.min.js" type="text/javascript"></script>
+    <script src="~/Content/vendor/swiper/js/swiper.jquery.min.js" type="text/javascript"></script>
+    <script src="~/Content/vendor/masonry/jquery.masonry.pkgd.min.js" type="text/javascript"></script>
+    <script src="~/Content/vendor/masonry/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+    <script src="http://www.youtube.com/player_api"></script>
+
+    <!-- PAGE LEVEL SCRIPTS -->
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Content/js/layout.min.js" type="text/javascript"></script>
+    <script src="~/Content/js/components/wow.min.js" type="text/javascript"></script>
+    <script src="~/Content/js/components/swiper.min.js" type="text/javascript"></script>
+    <script src="~/Content/js/components/masonry.min.js" type="text/javascript"></script>
+    
+    <script>
+  $( function() {
+    var progressbar = $( "#progressbar" ),
+      progressLabel = $( ".progress-label" );
+
+    progressbar.progressbar({
+      value: false,
+      change: function() {
+        progressLabel.text( progressbar.progressbar( "value" ) + "%" );
+      },
+      complete: function() {
+        progressLabel.text( "Complete!" );
+      }
+    });
+
+    function progress() {
+      var val = progressbar.progressbar( "value" ) || 0;
+
+      progressbar.progressbar( "value",  @ViewBag.Progress );
+
+    }
+
+    setTimeout( progress, 2000 );
+  } );
+    </script>
+    @RenderSection("scripts", false)
+</body>
+</html>

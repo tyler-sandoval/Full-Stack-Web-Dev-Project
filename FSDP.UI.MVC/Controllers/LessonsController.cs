@@ -118,8 +118,9 @@ namespace FSDP.UI.MVC.Controllers
                     }
                     catch (Exception)
                     {
-                        return ViewBag.Error = "There was an issue with sending manager email notification. Please alert your manager and submit a ticket via contact page!";
+                        ViewBag.Error = "There was an issue with sending manager email notification. Please alert your manager and submit a ticket via contact page!";
                     }
+                    finally { }
                 }
             }
 

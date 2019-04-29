@@ -1,0 +1,64 @@
+﻿@model FSDP.DATA.EF.Cours
+
+@{
+    ViewBag.Title = Model.CourseName + " | Course Details";
+}
+
+<div id="customBodyLayout">
+    <div>
+        <h2>@ViewBag.Title</h2>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CourseName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsActive)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @if (User.IsInRole("Admin"))
+        {
+            <button class="btn btn-warning" id="prezStyle">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.CourseID })
+            </button>
+        }
+        <button class="btn btn-warning" id="prezStyle">
+            @Html.ActionLink("Back to List", "Index")
+        </button>
+    </p>
+</div>
+
+@section pageSpecificSlider {
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="img-responsive" src="~/Content/img/1920x1080/fsdp.png" alt="Slider Image">
+            <div class="container">
+                <div class="carousel-centered">
+                    <div class="margin-b-40">
+                        <h1 class="carousel-title" style="text-shadow: 2px 2px 2px black, 0 0 25px purple, 0 0 10px indigo;">Course Details</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

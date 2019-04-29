@@ -1,0 +1,10 @@
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.DATA.EF\bin\Release\FSDP.DATA.EF.dll.config
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.DATA.EF\bin\Release\FSDP.DATA.EF.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.DATA.EF\bin\Release\FSDP.DATA.EF.pdb
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.DATA.EF\bin\Release\EntityFramework.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.DATA.EF\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.DATA.EF\bin\Release\EntityFramework.xml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.DATA.EF\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.DATA.EF\obj\Release\FSDP.DATA.EF.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.DATA.EF\obj\Release\FSDP.DATA.EF.dll
+C:\Users\Student\Documents\Visual Studio 2015\Projects\FSDP\src\FSDP.DATA.EF\obj\Release\FSDP.DATA.EF.pdb

@@ -1,0 +1,36 @@
+﻿@model FSDP.DATA.EF.CourseAssignment
+
+@{
+    ViewBag.Title = "Assignment for " + Model.AspNetUser.Email;
+}
+
+<div id="bodyNavSeperatorDiv">
+
+
+    <div>
+        <h2>@ViewBag.Title</h2>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AspNetUser.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Cours.CourseName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Cours.CourseName)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CourseAssignments }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

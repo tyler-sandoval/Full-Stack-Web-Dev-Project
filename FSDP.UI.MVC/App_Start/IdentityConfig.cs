@@ -20,24 +20,24 @@ namespace FSDP.UI.MVC.Models
         public Task SendAsync(IdentityMessage message)
         {
             // this is the envelope that our email is going to be sent in
-            MailMessage msg = new MailMessage(
-                "no-reply@tylersandoval.com",
-                message.Destination,
-                message.Subject,
-                message.Body
-                );
-            // below allows the hyperlink to be a clickable hyperlink to verify email instead of plain text
-            msg.IsBodyHtml = true;
+            //MailMessage msg = new MailMessage(
+            //    "no-reply@tylersandoval.com",
+            //    message.Destination,
+            //    message.Subject,
+            //    message.Body
+            //    );
+            //// below allows the hyperlink to be a clickable hyperlink to verify email instead of plain text
+            //msg.IsBodyHtml = true;
 
-            // This is our post office from which it will be sent from
-            SmtpClient client = new SmtpClient("mail.tylersandoval.com");
-            client.Credentials = new NetworkCredential("no-reply@tylersandoval.com", "Vivian0221!");
+            //// This is our post office from which it will be sent from
+            //SmtpClient client = new SmtpClient("mail.tylersandoval.com");
+            //client.Credentials = new NetworkCredential("no-reply@tylersandoval.com", "Vivian0221!");
 
-            // how our verify email is sent
-            using (client)
-            {
-                client.Send(msg);
-            }
+            //// how our verify email is sent
+            //using (client)
+            //{
+            //    client.Send(msg);
+            //}
 
             // Plug in your email service here to send an email.
             return Task.FromResult(0);

@@ -33,10 +33,13 @@ namespace FSDP.UI.MVC.Controllers
                 ViewBag.Progress = CourseProgression();
                 return View(empcrs);
             }
+            else
+            {
             var courses = uow.CoursesRepository.Get();
             ViewBag.Progress = CourseProgression();
 
             return View(courses);
+            }
         }
 
         // GET: Courses/Details/5

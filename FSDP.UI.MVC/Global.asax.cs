@@ -23,10 +23,10 @@ namespace FSDP.UI.MVC
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             //setup connection to Gnostice API for StarDocs
-            starDocs = new StarDocs(new ConnectionInfo(new Uri("https://api.gnostice.com/stardocs/v1"), "b20bf47a1f544cd6992c9315ce5bc99c", "90d88b7a078740fcb0d3c8a5aa682957"));
+            //starDocs = new StarDocs(new ConnectionInfo(new Uri("https://api.gnostice.com/stardocs/v1"), "b20bf47a1f544cd6992c9315ce5bc99c", "90d88b7a078740fcb0d3c8a5aa682957"));
 
             //Authenticate starDocs
-            starDocs.Auth.loginApp();
+            //starDocs.Auth.loginApp();
         }
     }
 }

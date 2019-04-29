@@ -375,6 +375,7 @@
     <Content Include="Content\img\pdfs\TESTupdatePDF.pdf" />
     <Content Include="Content\img\pdfs\TESTcreatePDF.pdf" />
     <Content Include="Content\img\pdfs\Tyler Sandoval Resume PDF.pdf" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
